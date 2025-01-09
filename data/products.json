@@ -1,0 +1,111 @@
+[
+    {
+        "name": "Fresh Milk-500ml",
+        "price": 175.00,
+        "description": "Freshly drwan milk",
+        "ratings": 4.5,
+        "images": [
+            {
+                "image": "/images/products/1.jpg"
+            },
+            {
+                "image": "/images/products/2.jpg"
+            }
+        ],
+        "category": "Milk",
+        "stock": 5,
+        "numOfReviews": 15,
+        "reviews": []
+    },
+    {
+        "name": "Chocalate Flavoured Milk - 1l",
+        "price": 630.00,
+        "description": "Pure Chocolate falvoured milk",
+        "ratings": 3.5,
+        "images": [
+            {
+                "image": "/images/products/2.jpg"
+            }
+        ],
+        "category": "Milk",
+        "stock": 9,
+        "numOfReviews": 5,
+        "reviews": []
+    },
+    {
+        "name": "Strawberry Flavoured milk - 1l",
+        "price": 550.00,
+        "description": "pure strawberry flavoured milk",
+        "ratings": 2,
+        "images": [
+            {
+                "image": "/images/products/3.jpg"
+            }
+        ],
+        "category": "Milk",
+        "seller": "Ebay",
+        "stock": 9,
+        "numOfReviews": 12,
+        "reviews": []
+    },
+    {
+        "name": "Armond flavoured milk-1l",
+        "price": 640.00,
+        "description": "Pure Armond flavoured milk",
+        "ratings": 4,
+        "images": [
+          {
+            "image": "/images/products/6.jpg"
+          }
+        ],
+        "category": "Milk",
+        "stock": 9,
+        "numOfReviews": 12,
+        "reviews": []
+      },
+      {
+        "name": "Vanilla flavoured milk - 1l",
+        "price": 400.00,
+        "description": "Pure vanilla flavoured milk",
+        "ratings": 5,
+        "images": [
+          {
+            "image": "/images/products/7.jpg"
+          }
+        ],
+        "category": "Milk",
+        "stock": 9,
+        "numOfReviews": 12,
+        "reviews": []
+    },
+    {
+        "name": "Strawberry ice-cream - 250g",
+        "price": 150.00,
+        "description": "srawberry flavoured ice-cream",
+        "ratings": 5,
+        "images": [
+            {
+                "image": "/images/products/4.jpg"
+            }
+        ],
+        "category": "Ice-Cream",
+        "stock": 4,
+        "numOfReviews": 20,
+        "reviews": []
+    },
+    {
+        "name": "Chocolate Ice-Cream - 1kg",
+        "price": 1200.00,
+        "description": "chocolate flavoured ice-cream",
+        "ratings": 3,
+        "images": [
+            {
+                "image": "/images/products/5.jpg"
+            }
+        ],
+        "category": "Ice-Cream",
+        "stock": 6,
+        "numOfReviews": 9,
+        "reviews": []
+    }
+]
