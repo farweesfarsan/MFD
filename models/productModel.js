@@ -42,7 +42,8 @@ const productSchema = new mongoose.Schema({
                 'Panneer',
                 'Yoghurt',
                 'Ghee',
-                'Butter'
+                'Butter',
+                'Yoghurt Milk'
             ]
         },
         message:"Please Selecet a Category"
