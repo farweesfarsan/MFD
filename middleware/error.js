@@ -29,6 +29,21 @@ module.exports = (err, req, res, next) => {
       error = new ErrorHandler(message, 404); // Use ErrorHandler with a 404 status code
     }
 
+    if(err.code == 11000){
+      let message = `This ${Object.keys(err.keyValue)} already exist`;
+      error = new ErrorHandler(message, 400);
+    }
+
+    if(err.name == 'JSONWebTokenError'){
+      let message = 'Json WebToken is Invalid.Try again'
+      error = new ErrorHandler(message, 400);
+    }
+
+    if(err.name == 'TokenExpiredError'){
+      let message = 'Json WebToken is Expired.Try again'
+      error = new ErrorHandler(message, 400);
+    }
+
     res.status(error.statuscode || 500).json({
       success: false,
       message: error.message || "Internal Server Error",
