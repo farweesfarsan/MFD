@@ -40,10 +40,13 @@ const userSchema = mongoose.Schema({
 
 })
 
-// userSchema.pre('save',function(next){
-//     this.password = bcrypt.hash(this.password,10);
+userSchema.pre('save', async function (next){
+    if(!this.isModified('password')){
+        next();
+    }
+    this.password  = await bcrypt.hash(this.password, 10)
+})
 
-// })
 userSchema.methods.getJwtToken = function(){
    return jwt.sign({id:this.id},process.env.JWT_SECRET,{
         expiresIn:process.env.JWT_EXPIRES

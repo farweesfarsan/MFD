@@ -6,14 +6,15 @@ const ErrorHandler = require('../utils/errorHandler');
 const sendToken = require('../utils/jwt');
 
 const sendEmail = require('../utils/emailServer');
+const { response } = require('express');
 
+// Register user - http://localhost:8000/user/register
 exports.registerUser = catchAssyncError( async (req,res,next)=>{
  const {name,email,password,avatar} = req.body;
- const hashedPassword = await bcrypt.hash(password,10);
  
  const user = await User.create({
     name,
-    password:hashedPassword,
+    password,
     email,
     avatar
   });
@@ -21,6 +22,7 @@ exports.registerUser = catchAssyncError( async (req,res,next)=>{
   sendToken(user,201,res);
 });
 
+// Login an existing user - http://localhost:8000/user/userLogin
 exports.loginUser = catchAssyncError(async (req, res, next) => {
   const {email, password} =  req.body
 
@@ -43,6 +45,7 @@ exports.loginUser = catchAssyncError(async (req, res, next) => {
   
 })
 
+// Logout an existing User - http://localhost:8000/user/userLogout
 exports.logoutUser = (req,res,next)=>{
   res.cookie('token',null,{
     expires:new Date(Date.now()),
@@ -55,6 +58,7 @@ exports.logoutUser = (req,res,next)=>{
    });
 }
 
+// Forgot Password - http://localhost:8000/user/password/forgot
 exports.forgotPassword = catchAssyncError(async (req,res,next)=>{
   const user = await User.findOne({email:req.body.email});
 
@@ -92,6 +96,7 @@ exports.forgotPassword = catchAssyncError(async (req,res,next)=>{
   
 });
 
+// Reset the Password - http://localhost:8000/user/password/reset/:token
 exports.resetPassword = catchAssyncError(async (req,res,next)=>{
    const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
    const user = await User.findOne({
@@ -118,3 +123,29 @@ exports.resetPassword = catchAssyncError(async (req,res,next)=>{
 
 
 });
+
+//Get User Profile
+exports.getUserProfile = catchAssyncError(async (req,res,next)=>{
+  const user = await User.findById(req.user.id);
+  res.status(200).json({
+    success:true,
+    user
+  });
+})
+
+//Change Password
+exports.changePassword = catchAssyncError(async (req,res,next)=>{
+  const user = await User.findById(req.user.id).select('+password');
+
+  //check the old password
+  if(!await user.isPasswordValid(req.body.oldPassword)){
+    return next(new ErrorHandler("Old Password is incorrect"));
+  }
+
+  //assigning new password
+  user.password = req.body.password;
+  await user.save();
+  res.status(201).json({
+    success:true,
+  })
+})
