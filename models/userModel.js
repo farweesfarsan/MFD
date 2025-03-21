@@ -13,7 +13,10 @@ const userSchema = mongoose.Schema({
         type:String,
         required:[true,'Please enter email'],
         unique:true,
-        validator:[validator.isEmail,'Please Enter Valid Email Address']
+        validate: {
+            validator: validator.isEmail,
+            message: 'Please Enter a Valid Email Address'
+        }
 
     },
     password:{
@@ -23,8 +26,7 @@ const userSchema = mongoose.Schema({
         select:false
     },
     avatar:{
-        type:String,
-        required:true
+        type:String   
     },
     role:{
         type:String,

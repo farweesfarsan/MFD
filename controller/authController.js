@@ -10,7 +10,12 @@ const { response } = require('express');
 
 // Register user - http://localhost:8000/user/register
 exports.registerUser = catchAssyncError( async (req,res,next)=>{
- const {name,email,password,avatar} = req.body;
+ const {name,email,password} = req.body;
+ 
+ let avatar;
+ if(req.file){
+   avatar = `${process.env.BACKEND_URL}/uploads/user/${req.file.originalname}`
+ }
  
  const user = await User.create({
     name,
@@ -147,5 +152,85 @@ exports.changePassword = catchAssyncError(async (req,res,next)=>{
   await user.save();
   res.status(201).json({
     success:true,
+  })
+})
+
+//update the profile
+exports.updateProfile = catchAssyncError(async (req,res,next)=>{
+  let newUserData = {
+    name: req.body.name,
+    email: req.body.email
+}
+
+  let avatar;
+  if(req.file){
+    avatar = `${process.env.BACKEND_URL}/uploads/user/${req.file.originalname}`
+    newUserData = {...newUserData,avatar}
+  }
+
+const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+  new: true,
+  runValidators: true,
+})
+
+res.status(200).json({
+  success: true,
+  user
+  })
+})
+
+
+
+//Admin: Get all users
+exports.getAllUsers = catchAssyncError(async (req,res,next)=>{
+ const users = await User.find();
+ res.status(200).json({
+   success:true,
+   users
+ });
+})
+
+//Admin: Get user by id
+exports.getUserById = catchAssyncError(async (req,res,next)=>{
+  const user = await User.findById(req.params.id);
+  if(!user){
+    return next(new ErrorHandler(`User not found with this id: ${req.params.id}`));
+  }
+
+  res.status(200).json({
+    success:true,
+    user
+  });
+})
+
+//Admin: Update User
+exports.updateUser = catchAssyncError(async (req,res,next)=>{
+  let newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+    role:req.body.role
+}
+
+const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+  new: true,
+  runValidators: true,
+})
+
+res.status(200).json({
+  success: true,
+  user
+  })
+})
+
+//Admin: Delete a User
+exports.deleteUser = catchAssyncError(async (req,res,next)=>{
+  const user = await User.findById(req.params.id);
+  if(!user){
+    return next(new ErrorHandler(`User not found with this id: ${req.params.id}`));
+  }
+
+  await user.remove();
+  res.status(200).json({
+    success:true
   })
 })

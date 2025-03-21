@@ -43,7 +43,7 @@ const productSchema = new mongoose.Schema({
                 'Yoghurt',
                 'Ghee',
                 'Butter',
-                'Yoghurt Milk'
+                'Yoghurt Drink'
             ]
         },
         message:"Please Selecet a Category"
@@ -62,11 +62,7 @@ const productSchema = new mongoose.Schema({
 
     reviews: [
         {
-            name:{
-                type: String,
-                required:true
-            },
-
+            user:mongoose.Schema.Types.ObjectId,
             rating:{
                 type: String,
                 required:true

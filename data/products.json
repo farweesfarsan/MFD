@@ -1,15 +1,12 @@
 [
     {
-        "name": "Fresh Milk-500ml",
-        "price": 175.00,
+        "name": "Fresh Milk-1L",
+        "price": 350.00,
         "description": "Freshly drwan milk",
         "ratings": 4.5,
         "images": [
             {
-                "image": "/images/products/1.jpg"
-            },
-            {
-                "image": "/images/products/2.jpg"
+                "image": "/images/products/fresh-milk-1L.webp"
             }
         ],
         "category": "Milk",
@@ -18,74 +15,74 @@
         "reviews": []
     },
     {
-        "name": "Chocalate Flavoured Milk - 1l",
+        "name": "Butter -200g",
         "price": 630.00,
-        "description": "Pure Chocolate falvoured milk",
+        "description": "Freshly drwan milk",
         "ratings": 3.5,
         "images": [
             {
-                "image": "/images/products/2.jpg"
+                "image": "/images/products/Butter-min.webp"
             }
         ],
-        "category": "Milk",
+        "category": "Butter",
         "stock": 9,
         "numOfReviews": 5,
         "reviews": []
     },
     {
-        "name": "Strawberry Flavoured milk - 1l",
+        "name": "Ghee -750ml",
         "price": 550.00,
-        "description": "pure strawberry flavoured milk",
+        "description": "Freshly drwan milk",
         "ratings": 2,
         "images": [
             {
-                "image": "/images/products/3.jpg"
+                "image": "/images/products/Ghee-750.webp"
             }
         ],
-        "category": "Milk",
+        "category": "Ghee",
         "seller": "Ebay",
         "stock": 9,
         "numOfReviews": 12,
         "reviews": []
     },
     {
-        "name": "Armond flavoured milk-1l",
+        "name": "Panneer -1Kg",
         "price": 640.00,
-        "description": "Pure Armond flavoured milk",
+        "description": "Freshly drwan milk",
         "ratings": 4,
         "images": [
           {
-            "image": "/images/products/6.jpg"
+            "image": "/images/products/Panneer.webp"
           }
         ],
-        "category": "Milk",
+        "category": "Panneer",
         "stock": 9,
         "numOfReviews": 12,
         "reviews": []
       },
       {
-        "name": "Vanilla flavoured milk - 1l",
-        "price": 400.00,
-        "description": "Pure vanilla flavoured milk",
+        "name": "Strawberry Yoghurt-Drink",
+        "price": 200.00,
+        "description": "Freshly drwan milk",
         "ratings": 5,
         "images": [
           {
-            "image": "/images/products/7.jpg"
+            "image": "/images/products/Yog-Milk-Str.webp"
           }
         ],
-        "category": "Milk",
+        "category": "Yoghurt Drink",
         "stock": 9,
         "numOfReviews": 12,
         "reviews": []
     },
     {
-        "name": "Strawberry ice-cream - 250g",
+        "name": "Vanilla ice-cream",
         "price": 150.00,
-        "description": "srawberry flavoured ice-cream",
+        "description": "vanilla flavoured ice-cream",
         "ratings": 5,
         "images": [
             {
-                "image": "/images/products/4.jpg"
+                "image": "/images/products/Vanilla-ice-cream.webp"
             }
         ],
         "category": "Ice-Cream",
@@ -94,18 +91,91 @@
         "reviews": []
     },
     {
-        "name": "Chocolate Ice-Cream - 1kg",
+        "name": "Yoghurt-Bulk",
         "price": 1200.00,
-        "description": "chocolate flavoured ice-cream",
+        "description": "Freshly drwan milk",
         "ratings": 3,
         "images": [
             {
-                "image": "/images/products/5.jpg"
+                "image": "/images/products/Yoghurt.webp"
             }
         ],
-        "category": "Ice-Cream",
+        "category": "Yoghurt",
         "stock": 6,
         "numOfReviews": 9,
+        "reviews": []
+    },
+    {
+        "name": "Curd -950ml",
+        "price": 1200.00,
+        "description": "Freshly drawn milk",
+        "ratings": 3,
+        "images": [
+            {
+                "image": "/images/products/CURD-950.webp"
+            }
+        ],
+        "category": "Curd",
+        "stock": 6,
+        "numOfReviews": 9,
+        "reviews": []
+    },{
+        "name": "Fresh Milk-500ml",
+        "price": 175.00,
+        "description": "Freshly drwan milk",
+        "ratings": 4.5,
+        "images": [
+            {
+                "image": "/images/products/Fresh-Milk-500ml.webp"
+            }
+        ],
+        "category": "Milk",
+        "stock": 5,
+        "numOfReviews": 15,
+        "reviews": []
+    },
+    {
+        "name": "Chocalate Milk-1L",
+        "price": 500.00,
+        "description": "Freshly drwan milk",
+        "ratings": 4.5,
+        "images": [
+            {
+                "image": "/images/products/Chocalate-Milk-1l.webp"
+            }
+        ],
+        "category": "Milk",
+        "stock": 5,
+        "numOfReviews": 15,
+        "reviews": []
+    },{
+        "name": "Vanilla Milk-1L",
+        "price": 750.00,
+        "description": "Freshly drwan milk",
+        "ratings": 4.5,
+        "images": [
+            {
+                "image": "/images/products/Vanilla-Milk-1L.webp"
+            }
+        ],
+        "category": "Milk",
+        "stock": 5,
+        "numOfReviews": 15,
+        "reviews": []
+    },
+    {
+        "name": "Strawberry Milk-1L",
+        "price": 600.00,
+        "description": "Freshly drwan milk",
+        "ratings": 4.5,
+        "images": [
+            {
+                "image": "/images/products/Strawberry-Milk-1L.webp"
+            }
+        ],
+        "category": "Milk",
+        "stock": 5,
+        "numOfReviews": 15,
         "reviews": []
     }
 ]
