@@ -3,6 +3,7 @@ const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
+const { type } = require('os');
 
 const userSchema = mongoose.Schema({
     name:{
@@ -28,13 +29,15 @@ const userSchema = mongoose.Schema({
     avatar:{
         type:String   
     },
+    otp: String,
+    otpExpire: Date,
     role:{
         type:String,
         default:'user'
     },
     
-    resetPasswordToken:String,
-    resetPasswordExpireToken:Date,
+    resetPasswordToken: String,
+    resetPasswordExpireToken: Date,
     createdAt:{
         type:Date,
         default:Date.now
@@ -71,6 +74,13 @@ userSchema.methods.getResetToken = function(){
 
    return token;
 }
+
+userSchema.methods.generateOtp = function () {
+    const otp = Math.floor(1000 + Math.random() * 9000).toString(); // Generate 4-digit OTP
+    this.otp = otp;
+    this.otpExpire = Date.now() + 10 * 60 * 1000; // OTP valid for 10 minutes
+    return otp;
+};
 
 
 

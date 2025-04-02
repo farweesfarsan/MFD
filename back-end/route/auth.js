@@ -25,6 +25,8 @@ const upload = multer({storage: multer.diskStorage({
 
 
 const {registerUser,
+       sendOtp,
+       verifyOtp,
        loginUser,
        logoutUser,
        forgotPassword,
@@ -42,6 +44,8 @@ const {authenticatedUser, authorizedRoles} = require('../middleware/authMiddlewa
 
 
 router.route('/register').post(upload.single('avatar'),registerUser);
+router.route('/sendOtp').post(sendOtp);
+router.route('/verifyOtp').post(verifyOtp);
 router.route('/userLogin').post(loginUser);
 router.route('/userLogout').get(logoutUser);
 router.route('/password/forgot').post(forgotPassword);
