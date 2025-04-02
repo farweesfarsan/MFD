@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Coiny&family=DM+Serif+Text:ital@0;1&family=Finger+Paint&family=Keania+One&family=Saira+Stencil+One&family=Unlock&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  background-color: rgb(238, 237, 237);
+}
+
+
+.finger-paint-regular {
+  font-family: "Finger Paint", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.righteous-regular {
+  font-family: "Righteous", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.coiny-regular {
+  font-family: "Coiny", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.keania-one-regular {
+  font-family: "Keania One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.unlock-regular {
+  font-family: "Unlock", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.kanit-light {
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* Centering content and limiting width */
+.container {
+  max-width: 1200px; /* Adjust this value based on your preference */
+  margin: 0 auto; /* Centers the container */
+  padding: 0 20px; /* Adds some spacing on the sides */
+}
+
+/* Fluid container for responsiveness */
+.container-fluid {
+  width: 100%;
+  padding: 0 20px; /* Adds some padding to avoid edge sticking */
+}
+
+/* Category Section Styling */
+.category-section {
+  font-family: "Finger Paint", cursive;
+}
