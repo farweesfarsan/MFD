@@ -172,27 +172,5 @@ export const sendOtp = (email) => async (dispatch) => {
     }
 };
 
-// export const verifyOtp = (otpData) => async (dispatch) => {
-//     try {
-//         dispatch(verifyOtpRequest());
-
-//         const config = {
-//             headers: {
-//                 "Content-Type": "application/json"
-//             },
-//             withCredentials: true
-//         };
-
-//         const { data } = await axios.post(
-//             "http://localhost:8000/user/verifyOtp",
-//             otpData,
-//             config
-//         );
-
-//         dispatch(verifyOtpSuccess(data));
-//     } catch (error) {
-//         dispatch(verifyOtpFail(error.response?.data?.message || "OTP verification failed"));
-//     }
-// };
 
 

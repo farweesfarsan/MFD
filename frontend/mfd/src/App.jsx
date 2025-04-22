@@ -17,7 +17,13 @@ import ResetPassword from "./components/user/ResetPassword";
 import store from './store'
 import { loadUser } from "./actions/usersActions";
 import ProtectedRoute from "./components/route/ProtectedRoute";
+import Cart from "./components/cart/cart";
+import Delivery from "./components/cart/delivery";
+import Payment from "./components/cart/Payment";
+import ConfirmOrder from "./components/cart/confirmOrder";
+import SuccessPayment from "./components/cart/paymentSuccess";
 import OTPStepper from "./components/user/OTPStepper";
+import { PaymentProvider } from "./context/paymentContext";
 
 
 
@@ -27,11 +33,13 @@ const App = () => {
     }, []);
     return (
         <HelmetProvider>
+            <PaymentProvider>
             <Router>
                 <div className="font-sans">
                     <Header />
                     
                     <ToastContainer position="bottom-center" autoClose={5000} />
+                    
                     <Routes>
                         <Route path="/" element={<Home/>}/>
                         <Route path="/products/:id" element={<ProductDetails/>}/>
@@ -44,12 +52,18 @@ const App = () => {
                         <Route path="/update" element={<ProtectedRoute><UpdateProfile/></ProtectedRoute>}/>
                         <Route path="/myProfile/update/updatePassword" element={<ProtectedRoute><UpdatePassword/></ProtectedRoute>}/>
                         <Route path="/password/forgot" element={<ForgotPassword/>}/>
+                        <Route path="/cart" element={<Cart/>}/>
+                        <Route path="/delivery" element={<ProtectedRoute><Delivery/></ProtectedRoute>}/>
                         <Route path="/password/reset/:token" element={<ResetPassword/>}/>
+                        <Route path="/order/confirm" element={<ConfirmOrder/>}/>
+                        <Route path="/payment" element={<Payment/>}/>
+                        <Route path="/payment/success" element={<SuccessPayment/>}/>
 
                     </Routes>
                   
                 </div>
             </Router>
+            </PaymentProvider>
         </HelmetProvider>
     );
 };

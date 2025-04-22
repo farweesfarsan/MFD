@@ -1,14 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Coiny&family=DM+Serif+Text:ital@0;1&family=Finger+Paint&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Keania+One&family=Oleo+Script:wght@400;700&family=Righteous&family=Saira+Stencil+One&family=Unlock&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Coiny&family=Courgette&family=DM+Serif+Text:ital@0;1&family=Finger+Paint&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Keania+One&family=Oleo+Script:wght@400;700&family=Righteous&family=Saira+Stencil+One&family=Unlock&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Coiny&family=DM+Serif+Text:ital@0;1&family=Finger+Paint&family=Keania+One&family=Saira+Stencil+One&family=Unlock&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Coiny&family=DM+Serif+Text:ital@0;1&family=Finger+Paint&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Keania+One&family=Righteous&family=Saira+Stencil+One&family=Unlock&display=swap');
 
 html, body {
   overflow-x: hidden;
   width: 100%;
   background-color: rgb(238, 237, 237);
+}
+
+.black-ops-one-regular {
+  font-family: "Black Ops One", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.courgette-regular {
+  font-family: "Courgette", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.oleo-script-bold {
+  font-family: "Oleo Script", system-ui;
+  font-weight: 700;
+  font-style: normal;
 }
 
 
@@ -17,6 +40,16 @@ html, body {
   font-weight: 400;
   font-style: normal;
 }
+
+/* .keania-one-regular {
+  font-family: "Keania One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+} */
+.keania-one-regular {
+  font-family: 'Keania One', cursive;
+}
+
 
 .righteous-regular {
   font-family: "Righteous", sans-serif;
@@ -65,3 +98,16 @@ html, body {
 .category-section {
   font-family: "Finger Paint", cursive;
 }
+
+.clip-arrow {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 15px) 0,
+    100% 50%,
+    calc(100% - 15px) 100%,
+    0 100%,
+    15px 50%
+  );
+}
+
+

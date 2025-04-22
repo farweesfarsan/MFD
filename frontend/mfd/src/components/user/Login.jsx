@@ -3,7 +3,7 @@ import Metadata from "../layouts/Metadata";
 import { login } from "../../actions/usersActions";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { resetUpdate } from "../../slices/authSlice";
@@ -15,11 +15,14 @@ const Login = () => {
     
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     const { loading, error, authenticatedUser } = useSelector(state => state.authState);
+
+    const redirect = location.search?'/'+location.search.split('=')[1]:'/';
 
     useEffect(() => {
         if (authenticatedUser) {
-            navigate('/');
+            navigate(redirect);
         }
         if (error) {
             toast.error(error, {

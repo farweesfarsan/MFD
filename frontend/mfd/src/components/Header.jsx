@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Avatar } from '@mui/material';
 import { FiMenu, FiX } from "react-icons/fi";
 import { FaShoppingCart } from "react-icons/fa";
@@ -8,20 +8,19 @@ import Mfd_logo from '../assets/MLF_SMALL_LOGO.webp';
 import Search from './layouts/Search';
 import { logoutUser } from '../actions/usersActions';
 
-
-
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [popoverOpen, setPopoverOpen] = useState(false);
   const { authenticatedUser, user, userLogged } = useSelector(state => state.authState);
+  const { items } = useSelector(state => state.cartState); // <-- Cart items from Redux
 
-   const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const logoutHandler = ()=>{
-     dispatch(logoutUser)
-     navigate('/')   
-  }
+  const logoutHandler = () => {
+    dispatch(logoutUser);
+    navigate('/login');
+  };
 
   const menuRef = useRef(null);
   const popoverRef = useRef(null);
@@ -32,35 +31,28 @@ const Header = () => {
         setMenuOpen(false);
       }
     };
-
     if (menuOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     }
-
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [menuOpen]);
 
-  // Close profile popover when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (popoverRef.current && !popoverRef.current.contains(event.target)) {
         setPopoverOpen(false);
       }
     };
-  
     if (popoverOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
     }
-  
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [popoverOpen]);
-  
 
   return (
     <header className="bg-gradient-to-r from-[#0e2438] to-[#93c7f8] text-white p-4 flex items-center justify-between relative">
-      {/* Left Section: Logo & Navigation */}
       <div className="flex items-center space-x-6 md:space-x-4 lg:space-x-8">
         <Link to='/'>
           <img src={Mfd_logo} alt="Logo" className="w-16 md:w-20" />
@@ -72,12 +64,9 @@ const Header = () => {
         </nav>
       </div>
 
-      {/* Middle Section: Search Bar */}
       <Search />
 
-      {/* Right Section: Profile & Cart */}
       <div className="hidden md:flex items-center space-x-3 lg:space-x-4">
-        {/* Profile & Popover Menu */}
         {authenticatedUser ? (
           <div className="relative" ref={popoverRef}>
             <div 
@@ -90,31 +79,25 @@ const Header = () => {
               />
               <span className="text-white font-bold text-lg">{user?.name}</span>
             </div>
-
-            {/* Popover Menu */}
             {popoverOpen && (
-             <div 
-             className="absolute right-0 mt-2 w-40 bg-white text-gray-900 rounded-lg shadow-lg py-2 z-50"
-             style={{ top: '100%', right: 0, minWidth: '150px' }} // Adjust positioning
-               >
-    <button 
-      onClick={() => {
-        setPopoverOpen(false);
-        navigate('/myProfile');
-      }} 
-      className="w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer"
-    >
-      Profile
-    </button>
-    <button 
-      onClick={logoutHandler} 
-      className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-500 cursor-pointer"
-    >
-      Logout
-    </button>
-  </div>
-)}
-
+              <div className="absolute right-0 mt-2 w-40 bg-white text-gray-900 rounded-lg shadow-lg py-2 z-50">
+                <button 
+                  onClick={() => {
+                    setPopoverOpen(false);
+                    navigate('/myProfile');
+                  }} 
+                  className="w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                >
+                  Profile
+                </button>
+                <button 
+                  onClick={logoutHandler} 
+                  className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-500 cursor-pointer"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           <Link 
@@ -125,9 +108,16 @@ const Header = () => {
           </Link>
         )}
 
-        {/* Shopping Cart */}
-        <div className='bg-[#e99820fa] rounded-md p-3 hover:scale-110 hover:shadow-xl'>
-          <FaShoppingCart className='text-2xl cursor-pointer' />
+        {/* Cart with Notification Badge */}
+        <div className="relative bg-[#e99820fa] rounded-md p-3 hover:scale-110 hover:shadow-xl">
+          <Link to='/cart'>
+            <FaShoppingCart className='text-2xl cursor-pointer' />
+            {items.length > 0 && (
+              <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                {items.length}
+              </span>
+            )}
+          </Link>
         </div>
       </div>
 
@@ -140,18 +130,24 @@ const Header = () => {
         )}
       </div>
 
-      {/* Mobile Menu (UNCHANGED) */}
+      {/* Mobile Menu */}
       {menuOpen && (
         <div 
           ref={menuRef} 
           className="fixed top-0 left-0 h-full w-3/4 bg-[#0e2438] text-white p-6 flex flex-col space-y-6 shadow-lg transition-transform duration-300 z-50"
         >
-          {/* Shopping Cart */}
-          <div className='bg-[#e99820fa] w-12 h-12 flex items-center justify-center rounded-md hover:scale-110 hover:shadow-xl'>
-            <FaShoppingCart className='text-2xl cursor-pointer' />
+          {/* Mobile Cart with Badge */}
+          <div className="relative bg-[#e99820fa] w-12 h-12 flex items-center justify-center rounded-md hover:scale-110 hover:shadow-xl">
+            <Link to="/cart">
+              <FaShoppingCart className="text-2xl cursor-pointer" />
+              {items.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {items.length}
+                </span>
+              )}
+            </Link>
           </div>
 
-          {/* User Profile (If Authenticated) */}
           {authenticatedUser && (
             <div className="flex flex-col items-center space-y-3 mt-4">
               <Avatar 
@@ -159,27 +155,23 @@ const Header = () => {
                 sx={{ width: 60, height: 60, border: '2px solid #ffffff' }} 
               />
               <span className="text-white font-bold text-lg">{user?.name}</span>
-
-              {/* Profile & Logout Options */}
               <div className="flex flex-col items-center w-full space-y-2 mt-3">
-                <button onClick={()=>{
+                <button onClick={() => {
                   setMenuOpen(false); 
-                  navigate('/myProfile')
+                  navigate('/myProfile');
                 }} className="w-full text-center text-white font-medium bg-gray-700 px-4 py-2 rounded-md hover:bg-gray-600 cursor-pointer">
                   Profile
                 </button>
                 <button onClick={() => {
-                setMenuOpen(false);
-                logoutHandler();
-               }} className="w-full text-center text-red-500 font-medium bg-gray-700 px-4 py-2 rounded-md hover:bg-gray-600 cursor-pointer">
-               Logout
-              </button>
-
+                  setMenuOpen(false);
+                  logoutHandler();
+                }} className="w-full text-center text-red-500 font-medium bg-gray-700 px-4 py-2 rounded-md hover:bg-gray-600 cursor-pointer">
+                  Logout
+                </button>
               </div>
             </div>
           )}
 
-          {/* Login Button (If Not Authenticated) */}
           {!authenticatedUser && (
             <Link 
               onClick={() => setMenuOpen(false)} 
