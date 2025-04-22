@@ -62,18 +62,25 @@ const productSchema = new mongoose.Schema({
 
     reviews: [
         {
-            user:mongoose.Schema.Types.ObjectId,
-            rating:{
-                type: String,
-                required:true
+            user: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'User'
             },
-
-            comment:{
+            rating: {
                 type: String,
-                required:true
+                required: true
+            },
+            comment: {
+                type: String,
+                required: true
+            },
+            createdAt: {
+                type: Date,
+                default: Date.now
             }
         }
     ],
+    
 
     user:{
         type: mongoose.Schema.Types.ObjectId

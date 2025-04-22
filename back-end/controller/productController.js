@@ -34,18 +34,21 @@ exports.getProducts = catchAsyncError(async (req, res, next) => {
 
 
 // Get a Single Product
-exports.getSingleProduct = catchAsyncError(async (req,res,next)=>{
-  const product = await Product.findById(req.params.id);
+exports.getSingleProduct = catchAsyncError(async (req, res, next) => {
+  const product = await Product.findById(req.params.id)
+    .populate('reviews.user', 'name email')
+    .exec();
 
-  if(!product){
-    return next(new ErrorHandler('Product not found',400));
+  if (!product) {
+    return next(new ErrorHandler('Product not found', 400));
   }
-// await new Promise(resolve =>setTimeout(resolve,4000))
+
   res.status(200).json({
-    success:true,
+    success: true,
     product
-  })
+  });
 });
+
 
 exports.newProduct = catchAsyncError(async(req,res,next)=>{
    req.body.user = req.user.id;

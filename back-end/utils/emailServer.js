@@ -21,6 +21,28 @@ const forgotPasswordTemplate = require('../emailTemplates/forgotPasswordTemplate
 //     await transporter.sendMail(message);
 // };
 
+// const sendEmail = async (options) => {
+//     const transporter = nodemailer.createTransport({
+//         service: 'Gmail',
+//         auth: {
+//             user: process.env.EMAIL_FROM,
+//             pass: process.env.EMAIL_SERVER_PASS,
+//         },
+//     });
+
+//     const message = {
+//         from: `${process.env.SMTP_FROM_NAME} <${process.env.EMAIL_FROM}>`,
+//         to: options.email,
+//         subject: options.subject,
+//         html: options.html, // Accept different email templates dynamically
+//     };
+
+//     await transporter.sendMail(message);
+// };
+
+// module.exports = sendEmail;
+
+
 const sendEmail = async (options) => {
     const transporter = nodemailer.createTransport({
         service: 'Gmail',
@@ -34,7 +56,9 @@ const sendEmail = async (options) => {
         from: `${process.env.SMTP_FROM_NAME} <${process.env.EMAIL_FROM}>`,
         to: options.email,
         subject: options.subject,
-        html: options.html, // Accept different email templates dynamically
+        text: options.text || '',
+        html: options.html || '',
+        attachments: options.attachments || [],
     };
 
     await transporter.sendMail(message);

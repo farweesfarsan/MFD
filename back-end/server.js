@@ -1,9 +1,9 @@
 const app = require('./app');
-const dotenv = require('dotenv');
+
 const path = require('path');
 const connectionDB = require('./config/db');
 
-dotenv.config({path:path.join(__dirname,"config/.env")});
+
 connectionDB();
 
 const server = app.listen(process.env.PORT,()=>{
