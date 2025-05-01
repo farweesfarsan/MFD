@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Pagination from "react-js-pagination";
 import { FcNext, FcPrevious } from "react-icons/fc";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -65,6 +66,13 @@ const Home = () => {
               </div>
             )}
           </div>
+          <div className="flex justify-center mt-6 mb-12">
+            <Link to="/subscription">
+          <button className="bg-[#e24350] hover:bg-[#be3e3e] text-white font-semibold py-2 px-6 rounded-xl shadow-md transition duration-300">
+             View Subscription Plans
+          </button>
+          </Link>
+         </div>
           <Footer />
         </Fragment>
       )}

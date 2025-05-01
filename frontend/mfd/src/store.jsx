@@ -5,13 +5,15 @@ import productReducer from "./slices/productSlice";
 import authReducer from "./slices/authSlice";
 import cartReducer from "./slices/cartSlice";
 import orderReducer from "./slices/orderSlice";
+import subscriptionReducer from "./slices/subscription";
 
 const reducer = combineReducers({
     productsState: productsReducer,
     productState: productReducer,
     authState: authReducer,
     cartState: cartReducer,
-    orderState: orderReducer
+    orderState: orderReducer,
+    subscriptionState: subscriptionReducer
 });
 
 const store = configureStore({

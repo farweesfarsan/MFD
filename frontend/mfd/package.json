@@ -17,6 +17,7 @@
     "@reduxjs/toolkit": "^2.6.0",
     "axios": "^1.8.1",
     "country-state-city": "^3.2.1",
+    "crypto-js": "^4.2.0",
     "date-fns": "^4.1.0",
     "formik": "^2.4.6",
     "html2canvas": "^1.4.1",

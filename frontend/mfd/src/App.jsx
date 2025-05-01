@@ -23,7 +23,11 @@ import Payment from "./components/cart/Payment";
 import ConfirmOrder from "./components/cart/confirmOrder";
 import SuccessPayment from "./components/cart/paymentSuccess";
 import OTPStepper from "./components/user/OTPStepper";
+import SubscriptionPage from "./page/SubscriptionPage";
+import  SubscriptionPlans  from "./components/subscription/SubscriptionPlans";
 import { PaymentProvider } from "./context/paymentContext";
+import SubscriptionSuccess from "./components/subscription/SubscriptionSuccess";
+import SubscriptionCancel from "./components/subscription/subscriptionCancel";
 
 
 
@@ -58,6 +62,11 @@ const App = () => {
                         <Route path="/order/confirm" element={<ConfirmOrder/>}/>
                         <Route path="/payment" element={<Payment/>}/>
                         <Route path="/payment/success" element={<SuccessPayment/>}/>
+                        <Route path="/subscription/page" element={<SubscriptionPage/>}/>
+                        <Route path="/subscription/success" element={<SubscriptionSuccess/>}/>
+                        <Route path="/subscription" element={<SubscriptionPlans/>}/>
+                        <Route path="/subscription-success" element={<SubscriptionSuccess/>}/>
+                        <Route path="/subscription-cancel" element={<SubscriptionCancel/>}/>
 
                     </Routes>
                   

@@ -242,7 +242,7 @@ const ProductDetails = () => {
               <ProductReview reviews={product.reviews} />
             </div>
           ) : (
-            <p>No reviews available.</p>
+           null
           )}
         </Fragment>
       )}

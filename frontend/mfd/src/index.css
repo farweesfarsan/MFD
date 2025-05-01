@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Coiny&family=DM+Serif+Text:ital@0;1&family=Finger+Paint&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Keania+One&family=Oleo+Script:wght@400;700&family=Righteous&family=Saira+Stencil+One&family=Unlock&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Coiny&family=Courgette&family=DM+Serif+Text:ital@0;1&family=Finger+Paint&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Keania+One&family=Oleo+Script:wght@400;700&family=Righteous&family=Saira+Stencil+One&family=Unlock&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Boldonse&family=Coiny&family=Courgette&family=DM+Serif+Text:ital@0;1&family=Finger+Paint&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Keania+One&family=Oleo+Script:wght@400;700&family=Righteous&family=Saira+Stencil+One&family=Unlock&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -9,6 +10,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Coiny&family=DM+Serif+Text:ital@0;1&family=Finger+Paint&family=Keania+One&family=Saira+Stencil+One&family=Unlock&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Coiny&family=DM+Serif+Text:ital@0;1&family=Finger+Paint&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Keania+One&family=Righteous&family=Saira+Stencil+One&family=Unlock&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Boldonse&family=Coiny&family=Courgette&family=DM+Serif+Text:ital@0;1&family=Finger+Paint&family=Fredericka+the+Great&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Keania+One&family=Oleo+Script:wght@400;700&family=Righteous&family=Rye&family=Saira+Stencil+One&family=Unlock&display=swap');
 
 html, body {
   overflow-x: hidden;
@@ -18,6 +20,25 @@ html, body {
 
 .black-ops-one-regular {
   font-family: "Black Ops One", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.righteous-regular {
+  font-family: "Righteous", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.fredericka-the-great-regular {
+  font-family: "Fredericka the Great", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.boldonse-regular {
+  font-family: "Boldonse", system-ui;
   font-weight: 400;
   font-style: normal;
 }
@@ -41,11 +62,7 @@ html, body {
   font-style: normal;
 }
 
-/* .keania-one-regular {
-  font-family: "Keania One", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-} */
+
 .keania-one-regular {
   font-family: 'Keania One', cursive;
 }

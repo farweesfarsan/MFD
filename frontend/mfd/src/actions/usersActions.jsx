@@ -17,8 +17,6 @@ export const login = (email, password) => async (dispatch) => {
     }
 };
 
-
-
 export const clearAuthErrors = () => (dispatch) => {
     dispatch(clearErrors());
 };
@@ -66,7 +64,6 @@ export const logoutUser =  async (dispatch) => {
         dispatch(logoutFail());
     }
 };
-
 
 export const updateProfile = (userData) => async (dispatch) => {
     try {

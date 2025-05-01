@@ -13,8 +13,8 @@ const Payment = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { deliveryInfo, items } = useSelector(state => state.cartState);
-  const { user } = useSelector(state => state.authState);
+  const { deliveryInfo, items } = useSelector((state) => state.cartState);
+  const { user } = useSelector((state) => state.authState);
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
 
   const { paymentMethod, setPaymentMethod } = usePayment();
@@ -92,13 +92,16 @@ const Payment = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8000/payment/paymentProcess", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(paymentDetails),
-      });
+      const response = await fetch(
+        "http://localhost:8000/payment/paymentProcess",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(paymentDetails),
+        }
+      );
 
       if (response.ok) {
         const { hash, merchant_id } = await response.json();
@@ -110,7 +113,7 @@ const Payment = () => {
           cancel_url: "http://localhost:5173/payment/cancel",
           notify_url: "http://localhost:8000/payment/notifyPayment",
           order_id: paymentDetails.order_id,
-          items: `Items : ${items.map(item => item.name).join(", ")}`,
+          items: `Items : ${items.map((item) => item.name).join(", ")}`,
           amount: paymentDetails.amount,
           currency: paymentDetails.currency,
           first_name: user.name.split(" ")[0],
@@ -162,27 +165,30 @@ const Payment = () => {
       <CheckoutSteps delivery={true} confirmOrder={true} payment={true} />
 
       {!orderInfo ? (
-  <div className="flex flex-col items-center justify-center mt-16 space-y-6">
-    <div className="max-w-2xl w-full p-6 text-center bg-yellow-100 border border-yellow-300 rounded shadow">
-      <h2 className="text-xl font-semibold text-yellow-800 mb-2">
-        Order information is missing
-      </h2>
-      <p className="text-yellow-700">
-        It seems like your order session has expired. Please go back and create a new order. If you want to cancel the last placed order, please check your email for the cancellation process.
-      </p>
-    </div>
-    <button
-      onClick={() => navigate('/')}
-      className="flex items-center gap-3 px-6 py-3 bg-[#1b6b75] text-white text-lg font-medium rounded hover:bg-[#155e67] transition"
-    >
-      <IoArrowBackCircle size={28} />
-      Back to Home
-    </button>
-  </div>
-) : (
-
+        <div className="flex flex-col items-center justify-center mt-16 space-y-6">
+          <div className="max-w-2xl w-full p-6 text-center bg-yellow-100 border border-yellow-300 rounded shadow">
+            <h2 className="text-xl font-semibold text-yellow-800 mb-2">
+              Order information is missing
+            </h2>
+            <p className="text-yellow-700">
+              It seems like your order session has expired. Please go back and
+              create a new order. If you want to cancel the last placed order,
+              please check your email for the cancellation process.
+            </p>
+          </div>
+          <button
+            onClick={() => navigate("/")}
+            className="flex items-center gap-3 px-6 py-3 bg-[#1b6b75] text-white text-lg font-medium rounded hover:bg-[#155e67] transition"
+          >
+            <IoArrowBackCircle size={28} />
+            Back to Home
+          </button>
+        </div>
+      ) : (
         <div className="max-w-xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
-          <h2 className="text-2xl font-bold mb-6 text-center">Select Payment Method</h2>
+          <h2 className="text-2xl font-bold mb-6 text-center">
+            Select Payment Method
+          </h2>
 
           <div className="space-y-4">
             <label className="flex items-center space-x-3 cursor-pointer">
@@ -194,7 +200,9 @@ const Payment = () => {
                 onChange={() => setPaymentMethod("payhere")}
                 className="w-5 h-5 text-blue-600 focus:ring-blue-500 border-gray-300"
               />
-              <span className="text-gray-700 text-lg">Pay Online (PayHere)</span>
+              <span className="text-gray-700 text-lg">
+                Pay Online (PayHere)
+              </span>
             </label>
 
             <label className="flex items-center space-x-3 cursor-pointer">
@@ -213,7 +221,9 @@ const Payment = () => {
           <button
             onClick={handlePayment}
             className={`w-full mt-8 text-white text-lg font-semibold py-2 px-4 rounded transition duration-200 ${
-              !orderInfo ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
+              !orderInfo
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-blue-600 hover:bg-blue-700"
             }`}
             disabled={!orderInfo}
           >
