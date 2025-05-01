@@ -18,6 +18,7 @@ const auth = require('./route/auth');
 const order = require('./route/order');
 const payment = require('./route/payment');
 const invoice = require('./route/invoice');
+const subscription = require('./route/subscription');
 const errorMiddleware = require('./middleware/error');
 const cookieParser = require('cookie-parser');
 
@@ -29,6 +30,7 @@ app.use('/user',auth);
 app.use('/order',order);
 app.use('/payment',payment);
 app.use('/invoice',invoice);
+app.use('/sub',subscription);
 app.use(errorMiddleware);
 
 module.exports = app;

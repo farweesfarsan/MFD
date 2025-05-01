@@ -29,6 +29,11 @@ const userSchema = mongoose.Schema({
     avatar:{
         type:String   
     },
+    subscription: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Subscription',
+      },
+      
     otp: String,
     otpExpire: Date,
     role:{

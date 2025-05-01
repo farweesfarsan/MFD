@@ -62,7 +62,17 @@ const orderSchema = mongoose.Schema({
         required: true,
         default: 0.0
     },
+    discount: {
+        type: Number,
+        default: 0.0,
+        required:true,
+    },
 
+    finalPrice: {
+        type: Number,
+        default:0.0,
+        required:true
+    },
     paymentInfo: {
         id: {
             type: String,
@@ -89,6 +99,44 @@ const orderSchema = mongoose.Schema({
         default:Date.now
     }
 
-})
+});
+
+orderSchema.pre('save', async function (next) {
+    try {
+      const userId = this.user;
+  
+      const subscription = await mongoose.model('Subscription').findOne({ userId: userId });
+  
+      if (!subscription || !subscription.isActive) {
+        this.discount = 0;
+        this.finalPrice = this.totalPrice;
+        return next();
+      }
+  
+      let discountRate = 0;
+      switch (subscription.planType) {
+        case 'Silver':
+          discountRate = 0.05;
+          break;
+        case 'Gold':
+          discountRate = 0.10;
+          break;
+        case 'Premium':
+          discountRate = 0.15;
+          break;
+        default:
+          discountRate = 0;
+      }
+  
+      this.discount = this.totalPrice * discountRate;
+      this.finalPrice = this.totalPrice - this.discount;
+  
+      next();
+    } catch (error) {
+      next(error);
+    }
+  });
+  
 
 module.exports = mongoose.model('Order',orderSchema);
+

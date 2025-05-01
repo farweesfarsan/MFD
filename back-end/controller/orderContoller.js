@@ -2,61 +2,7 @@ const catchAsyncError = require('../middleware/catchAsyncError');
 const Order = require('../models/orderModel');
 const ErrorHandler = require('../utils/errorHandler');
 const Product = require('../models/productModel');
-//Create new Order
-// exports.newOrder = catchAsyncError(async (req,res,next)=>{
-//     const {
-//         orderItems,
-//         deliveryInfo,
-//         itemsPrice,
-//         deliveryCharge,
-//         totalPrice,
-//         paymentInfo
-//     } = req.body
-
-//     const order = await Order.create({
-//         orderItems,
-//         deliveryInfo,
-//         itemsPrice,
-//         deliveryCharge,
-//         totalPrice,
-//         paymentInfo,
-//         paidAt:Date.now(),
-//         user:req.user.id
-//     });
-    
-//     res.status(200).json({
-//         success:true,
-//         order
-//     });
-// });
-
-// exports.newOrder = catchAsyncError(async (req,res,next)=>{
-//     const {
-//         orderItems,
-//         deliveryInfo,
-//         itemsPrice,
-//         deliveryCharge,
-//         totalPrice,
-//         paymentInfo
-//     } = req.body
-
-//     const order = await Order.create({
-//         orderItems,
-//         deliveryInfo,
-//         itemsPrice,
-//         deliveryCharge,
-//         totalPrice,
-//         paymentInfo,
-//         paidAt:Date.now(),
-//         user:req.user.id,
-        
-//     });
-    
-//     res.status(200).json({
-//         success:true,
-//         order
-//     });
-// });
+const User = require('../models/userModel');
 
 exports.newOrder = catchAsyncError(async (req,res,next)=>{
    try {
@@ -70,6 +16,7 @@ exports.newOrder = catchAsyncError(async (req,res,next)=>{
         paymentInfo
     } = req.body
 
+    
     const order = await Order.create({
         orderItems,
         deliveryInfo,
@@ -79,8 +26,7 @@ exports.newOrder = catchAsyncError(async (req,res,next)=>{
         paymentInfo,
         paidAt:Date.now(),
         user:req.user.id,
-        orderStatus: paymentInfo.status === "Paid" ? "Processing" : "Pending",
-        
+        orderStatus: paymentInfo.status === "Paid" ? "Processing" : "Pending",    
     });
     for (const item of orderItems) {
         const product = await Product.findById(item.product);
