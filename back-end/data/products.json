@@ -4,11 +4,7 @@
         "price": 350.00,
         "description": "Freshly drwan milk",
         "ratings": 4.5,
-        "images": [
-            {
-                "image": "/images/products/fresh-milk-1L.webp"
-            }
-        ],
+        "image": "/images/products/fresh-milk-1L.webp",
         "category": "Milk",
         "stock": 5,
         "numOfReviews": 15,
@@ -19,11 +15,7 @@
         "price": 630.00,
         "description": "Freshly drwan milk",
         "ratings": 3.5,
-        "images": [
-            {
-                "image": "/images/products/Butter-min.webp"
-            }
-        ],
+        "image": "/images/products/Butter-min.webp",
         "category": "Butter",
         "stock": 9,
         "numOfReviews": 5,
@@ -34,11 +26,7 @@
         "price": 550.00,
         "description": "Freshly drwan milk",
         "ratings": 2,
-        "images": [
-            {
-                "image": "/images/products/Ghee-750.webp"
-            }
-        ],
+        "image": "/images/products/Ghee-750.webp",
         "category": "Ghee",
         "seller": "Ebay",
         "stock": 9,
@@ -50,11 +38,7 @@
         "price": 640.00,
         "description": "Freshly drwan milk",
         "ratings": 4,
-        "images": [
-          {
-            "image": "/images/products/Panneer.webp"
-          }
-        ],
+        "image": "/images/products/Panneer.webp",
         "category": "Panneer",
         "stock": 9,
         "numOfReviews": 12,
@@ -65,11 +49,7 @@
         "price": 200.00,
         "description": "Freshly drwan milk",
         "ratings": 5,
-        "images": [
-          {
-            "image": "/images/products/Yog-Milk-Str.webp"
-          }
-        ],
+        "image": "/images/products/Yog-Milk-Str.webp",
         "category": "Yoghurt Drink",
         "stock": 9,
         "numOfReviews": 12,
@@ -80,11 +60,7 @@
         "price": 150.00,
         "description": "vanilla flavoured ice-cream",
         "ratings": 5,
-        "images": [
-            {
-                "image": "/images/products/Vanilla-ice-cream.webp"
-            }
-        ],
+        "image": "/images/products/Vanilla-ice-cream.webp",
         "category": "Ice-Cream",
         "stock": 4,
         "numOfReviews": 20,
@@ -95,11 +71,7 @@
         "price": 1200.00,
         "description": "Freshly drwan milk",
         "ratings": 3,
-        "images": [
-            {
-                "image": "/images/products/Yoghurt.webp"
-            }
-        ],
+        "image": "/images/products/Yoghurt.webp",
         "category": "Yoghurt",
         "stock": 6,
         "numOfReviews": 9,
@@ -110,11 +82,7 @@
         "price": 1200.00,
         "description": "Freshly drawn milk",
         "ratings": 3,
-        "images": [
-            {
-                "image": "/images/products/CURD-950.webp"
-            }
-        ],
+        "image": "/images/products/CURD-950.webp",
         "category": "Curd",
         "stock": 6,
         "numOfReviews": 9,
@@ -124,11 +92,7 @@
         "price": 175.00,
         "description": "Freshly drwan milk",
         "ratings": 4.5,
-        "images": [
-            {
-                "image": "/images/products/Fresh-Milk-500ml.webp"
-            }
-        ],
+       "image": "/images/products/Fresh-Milk-500ml.webp",
         "category": "Milk",
         "stock": 5,
         "numOfReviews": 15,
@@ -139,11 +103,7 @@
         "price": 500.00,
         "description": "Freshly drwan milk",
         "ratings": 4.5,
-        "images": [
-            {
-                "image": "/images/products/Chocalate-Milk-1l.webp"
-            }
-        ],
+        "image": "/images/products/Chocalate-Milk-1l.webp",
         "category": "Milk",
         "stock": 5,
         "numOfReviews": 15,
@@ -153,11 +113,7 @@
         "price": 750.00,
         "description": "Freshly drwan milk",
         "ratings": 4.5,
-        "images": [
-            {
-                "image": "/images/products/Vanilla-Milk-1L.webp"
-            }
-        ],
+        "image": "/images/products/Vanilla-Milk-1L.webp",
         "category": "Milk",
         "stock": 5,
         "numOfReviews": 15,
@@ -168,11 +124,7 @@
         "price": 600.00,
         "description": "Freshly drwan milk",
         "ratings": 4.5,
-        "images": [
-            {
-                "image": "/images/products/Strawberry-Milk-1L.webp"
-            }
-        ],
+        "image": "/images/products/Strawberry-Milk-1L.webp",
         "category": "Milk",
         "stock": 5,
         "numOfReviews": 15,

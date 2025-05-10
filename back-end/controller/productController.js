@@ -50,14 +50,37 @@ exports.getSingleProduct = catchAsyncError(async (req, res, next) => {
 });
 
 
-exports.newProduct = catchAsyncError(async(req,res,next)=>{
-   req.body.user = req.user.id;
+// exports.newProduct = catchAsyncError(async(req,res,next)=>{
+//   let imageUrl;
+//   if(req.file){
+//     imageUrl = `${process.env.BACKEND_URL}/uploads/products/${req.file.originalname}`;
+//     req.body.image = imageUrl;
+//   }
+//    req.body.user = req.user.id;
 
-    const product = await Product.create(req.body);
-    res.status(201).json({
-      success:true,
-      product
-    })
+//     const product = await Product.create(req.body);
+//     res.status(201).json({
+//       success:true,
+//       product
+//     })
+// });
+
+exports.newProduct = catchAsyncError(async (req, res, next) => {
+  let imageUrl;
+
+  if (req.file) {
+    imageUrl = `${process.env.BACKEND_URL}/uploads/products/${req.file.originalname}`;
+    req.body.image = imageUrl;
+  }
+
+  req.body.user = req.user.id;
+
+  const product = await Product.create(req.body);
+
+  res.status(201).json({
+    success: true,
+    product,
+  });
 });
 
 // Update a Product
@@ -177,5 +200,29 @@ exports.deleteReview = catchAsyncError(async (req,res,next)=>{
     res.status(200).json({
       success:true
     })
-})
+});
+
+exports.getAllProducts = catchAsyncError(async (req,res)=>{
+  const products = await Product.find();
+  res.status(200).json({
+    success: true,
+    products
+  })
+});
+// exports.getAllProducts = catchAsyncError(async (req, res) => {
+//   const page = parseInt(req.query.page) || 1;     // Default page = 1
+//   const limit = parseInt(req.query.limit) || 6;   // Default limit = 6
+//   const skip = (page - 1) * limit;
+
+//   const totalProducts = await Product.countDocuments(); // total products count
+//   const products = await Product.find().skip(skip).limit(limit);
+
+//   res.status(200).json({
+//     success: true,
+//     products,
+//     productsCount: totalProducts, // so frontend can calculate total pages
+//   });
+// });
+
+
 
