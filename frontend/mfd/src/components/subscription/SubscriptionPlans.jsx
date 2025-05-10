@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { createSubscriptionAction } from "../../actions/subscriptionActions"; // Adjust the path correctly!
+import { createSubscriptionAction } from "../../actions/subscriptionActions"; 
 import { useNavigate } from "react-router-dom";
 
 const plans = [

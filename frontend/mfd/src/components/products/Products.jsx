@@ -31,7 +31,7 @@ const Products = ({product}) => {
     <div  className="bg-white p-5 rounded-lg shadow-md">
     <img
         className="w-full h-50 object-cover rounded-md"
-        src={product.images[0].image}
+        src={product.image}
         alt={product.name}
     />
     <div className="mt-4 flex flex-col">

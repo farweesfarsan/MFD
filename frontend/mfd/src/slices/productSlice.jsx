@@ -5,6 +5,9 @@ const productSlice = createSlice({
     initialState: {
         loading: false,
         isReviewDeleted: false,
+        isProductCreated: false,
+        isReviewSubmitted:false,
+        isProductDeleted:false,
         reviews: []
         // products: {},
         // error:null
@@ -12,11 +15,13 @@ const productSlice = createSlice({
     reducers: {
         productRequest(state, action){
             return {
+                ...state,
                 loading: true
             }
         },
         productSuccess(state, action){
             return {
+                ...state,
                 loading: false,
                 product: action.payload.product
                
@@ -24,6 +29,7 @@ const productSlice = createSlice({
         },
         productFail(state, action){
             return {
+                ...state,
                 loading: false,
                 error:  action.payload
             }
@@ -59,6 +65,61 @@ const productSlice = createSlice({
                 ...state,
                 error: null
             }
+        },
+        newProductRequest(state, action){
+            return {
+                ...state,
+                loading: true
+            }
+        },
+        newProductSuccess(state, action){
+            return {
+                ...state,
+                loading: false,
+                product: action.payload.product,
+                isProductCreated: true   
+            }
+        },
+        newProductFail(state, action){
+            return {
+                ...state,
+                loading: false,
+                error:  action.payload,
+                isProductCreated: false
+            }
+        }
+        ,
+        clearProductCreater(state,action){
+            return {
+                ...state,
+                isProductCreated: false
+            }
+        },
+        deleteProductRequest(state, action){
+            return {
+                ...state,
+                loading: true
+            }
+        },
+        deleteProductSuccess(state, action){
+            return {
+                ...state,
+                loading: false,
+                isProductDeleted: true
+            }
+        },
+        deleteProductFail(state, action){
+            return {
+                ...state,
+                loading: false,
+                error:  action.payload,
+            }
+        },
+        clearProductDelete(state, action) {
+            return {
+                ...state,
+                isProductDeleted: false
+            }
         }
     }
 });
@@ -73,7 +134,15 @@ export const {
     createReviewSuccess,
     createReviewFail,
     clearReviewSubmitted,
-    clearError
+    clearError,
+    newProductRequest,
+    newProductSuccess,
+    newProductFail,
+    clearProductCreater,
+    deleteProductRequest,
+    deleteProductSuccess,
+    deleteProductFail,
+    clearProductDelete
 } = actions;
 
 export default reducer;

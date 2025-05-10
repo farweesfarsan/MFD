@@ -23,13 +23,14 @@ import Payment from "./components/cart/Payment";
 import ConfirmOrder from "./components/cart/confirmOrder";
 import SuccessPayment from "./components/cart/paymentSuccess";
 import OTPStepper from "./components/user/OTPStepper";
-import SubscriptionPage from "./page/SubscriptionPage";
 import  SubscriptionPlans  from "./components/subscription/SubscriptionPlans";
 import { PaymentProvider } from "./context/paymentContext";
 import SubscriptionSuccess from "./components/subscription/SubscriptionSuccess";
 import SubscriptionCancel from "./components/subscription/subscriptionCancel";
-
-
+import Dashboard from "./components/admin/dashboard/Dashboard";
+import ProductList from "./components/admin/dashboard/ProductsList";
+import Addnewproducts from "./components/admin/dashboard/Addnewproducts";
+import AdminDashboard from "./components/admin/AdminDashboard";
 
 const App = () => {
     useEffect(() => {
@@ -51,7 +52,6 @@ const App = () => {
                         <Route path="/login" element={<Login/>}/> 
                         <Route path="/register" element={<Register/>}/>
                         <Route path="/sendOtp" element={<OTPStepper/>}/> 
-                        {/* <Route path="/verify-email?token=:token" element={<VerifyEmail />}/> */}
                         <Route path="/myProfile" element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
                         <Route path="/update" element={<ProtectedRoute><UpdateProfile/></ProtectedRoute>}/>
                         <Route path="/myProfile/update/updatePassword" element={<ProtectedRoute><UpdatePassword/></ProtectedRoute>}/>
@@ -62,7 +62,6 @@ const App = () => {
                         <Route path="/order/confirm" element={<ConfirmOrder/>}/>
                         <Route path="/payment" element={<Payment/>}/>
                         <Route path="/payment/success" element={<SuccessPayment/>}/>
-                        <Route path="/subscription/page" element={<SubscriptionPage/>}/>
                         <Route path="/subscription/success" element={<SubscriptionSuccess/>}/>
                         <Route path="/subscription" element={<SubscriptionPlans/>}/>
                         <Route path="/subscription-success" element={<SubscriptionSuccess/>}/>
@@ -71,6 +70,12 @@ const App = () => {
                     </Routes>
                   
                 </div>
+                <Routes>
+                  {/* <Route path="/dashboard" element={<ProtectedRoute isAdmin={true}><Dashboard/></ProtectedRoute>}/> */}
+                  <Route path="/admin/products" element={<ProtectedRoute isAdmin={true}><ProductList/></ProtectedRoute>}/>
+                  <Route path="/admin/products/new" element={<ProtectedRoute isAdmin={true}><Addnewproducts/></ProtectedRoute>}/>
+                  <Route path="/admin/dashboard" element={<ProtectedRoute isAdmin={true}><Dashboard/></ProtectedRoute>}/>
+                </Routes>
             </Router>
             </PaymentProvider>
         </HelmetProvider>

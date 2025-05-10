@@ -22,28 +22,6 @@ const ResetPassword = () => {
         dispatch(resetPassword(formData, token));
     };
 
-    // useEffect(() => {
-    //     if (authenticatedUser) {
-    //         toast.success("Password Reset Successfully!", {
-    //             position: "bottom-center",
-    //             theme: "dark",
-    //             autoClose: 5000
-    //         });
-
-    //         navigate('/');
-    //     }
-
-    //     if (error) {
-    //         toast.error(error, {
-    //             position: "bottom-center",
-    //             autoClose: 5000,
-    //             theme: "dark"
-    //         });
-    //         dispatch(clearErrors());
-    //     }
-
-    // }, [authenticatedUser, error, dispatch, navigate]);
-
     useEffect(() => {
       if (isUpdated) {
           toast.success("Password Reset Successfully!", {
@@ -54,7 +32,7 @@ const ResetPassword = () => {
   
           navigate('/');
           window.location.reload();
-          dispatch(resetUpdate()); // Reset update state to prevent unwanted redirects
+          dispatch(resetUpdate()); 
       }
   
       if (error) {

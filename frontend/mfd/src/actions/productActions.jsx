@@ -1,7 +1,9 @@
 import axios from "axios";
 import { productFail, productRequest, productSuccess, createReviewRequest, 
     createReviewSuccess, 
-    createReviewFail , clearReviewSubmitted } from "../slices/productSlice";
+    createReviewFail , clearReviewSubmitted, newProductRequest, newProductSuccess, newProductFail, clearProductCreater,deleteProductRequest,
+    deleteProductSuccess,deleteProductFail,clearProductDelete 
+    } from "../slices/productSlice";
 
 
 export const getProduct = id => async (dispatch) => {
@@ -35,3 +37,46 @@ export const createReview = reviewData => async (dispatch) =>{
           dispatch(createReviewFail(error.response.data.message));
     }
 }
+
+export const createNewProduct = (formData) => async (dispatch) => {
+  try {
+    dispatch(newProductRequest());
+    const { data } = await axios.post(
+    `http://localhost:8000/mfd/admin/products/new`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data", 
+        },
+        withCredentials: true, 
+      }
+    );
+    dispatch(newProductSuccess(data)); 
+
+    // handle success
+    console.log(data.product);
+  } catch (error) {
+    dispatch(newProductFail(error.response?.data?.message || "Something went wrong"));
+  }
+};
+
+export const deleteProduct = id => async (dispatch) => {
+  try {
+    dispatch(deleteProductRequest());
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data", 
+      },
+      withCredentials: true, 
+    }
+
+    await axios.delete(
+    `http://localhost:8000/mfd/admin/products/${id}`,
+      config
+    );
+    dispatch(deleteProductSuccess()); 
+
+  } catch (error) {
+    dispatch(deleteProductFail(error.response?.data?.message || "Something went wrong"));
+  }
+};

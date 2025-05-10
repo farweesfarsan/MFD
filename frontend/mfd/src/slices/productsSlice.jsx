@@ -24,7 +24,30 @@ const productsSlice = createSlice({
                 loading: false,
                 error:  action.payload
             }
-        }   
+        },
+        adminProductRequest(state,action){
+            return {
+                loading: true,
+            }
+        },
+        adminProductSuccess(state,action){
+            return {
+                loading: false,
+                products: action.payload.products,
+            }
+        },
+        adminProductFail(state,action){
+            return {
+                loading: false,
+                error: action.payload
+            }
+        },
+        clearError(state, action){
+            return {
+                ...state,
+                error:  null
+            }
+        }  
     }
 });
 
@@ -33,7 +56,11 @@ const { actions, reducer } = productsSlice;
 export const { 
     productsRequest, 
     productsSuccess, 
-    productsFail
+    productsFail,
+    adminProductRequest,
+    adminProductSuccess,
+    adminProductFail,
+    clearError
 } = actions;
 
 export default reducer;

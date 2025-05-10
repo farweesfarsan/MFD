@@ -10,7 +10,7 @@ const SubscriptionSuccess = () => {
   const location = useLocation(); 
   const [message, setMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(true);
-  const subscriptionData = JSON.parse(localStorage.getItem('subscriptionData')); // Parse subscription data
+  const subscriptionData = JSON.parse(localStorage.getItem('subscriptionData')); 
   const user = localStorage.getItem('userId');
   
   const orderId = subscriptionData.order_id;

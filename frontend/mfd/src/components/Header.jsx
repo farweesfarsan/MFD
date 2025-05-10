@@ -12,7 +12,7 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [popoverOpen, setPopoverOpen] = useState(false);
   const { authenticatedUser, user, userLogged } = useSelector(state => state.authState);
-  const { items } = useSelector(state => state.cartState); // <-- Cart items from Redux
+  const { items } = useSelector(state => state.cartState); 
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -81,6 +81,20 @@ const Header = () => {
             </div>
             {popoverOpen && (
               <div className="absolute right-0 mt-2 w-40 bg-white text-gray-900 rounded-lg shadow-lg py-2 z-50">
+                
+                <button 
+                onClick={() => {
+                  setPopoverOpen(false);
+                  navigate('/admin/dashboard')
+                }} 
+                className="w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer"
+              >
+                Dashboard
+              </button> 
+               
+                
+                
+                
                 <button 
                   onClick={() => {
                     setPopoverOpen(false);
@@ -156,6 +170,12 @@ const Header = () => {
               />
               <span className="text-white font-bold text-lg">{user?.name}</span>
               <div className="flex flex-col items-center w-full space-y-2 mt-3">
+              <button onClick={() => {
+                  setMenuOpen(false); 
+                  navigate('/myProfile');
+                }} className="w-full text-center text-white font-medium bg-gray-700 px-4 py-2 rounded-md hover:bg-gray-600 cursor-pointer">
+                  Dashboard
+                </button>
                 <button onClick={() => {
                   setMenuOpen(false); 
                   navigate('/myProfile');
