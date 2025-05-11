@@ -2,7 +2,10 @@ import axios from "axios";
 import { productFail, productRequest, productSuccess, createReviewRequest, 
     createReviewSuccess, 
     createReviewFail , clearReviewSubmitted, newProductRequest, newProductSuccess, newProductFail, clearProductCreater,deleteProductRequest,
-    deleteProductSuccess,deleteProductFail,clearProductDelete 
+    deleteProductSuccess,deleteProductFail,clearProductDelete, 
+    updateProductRequest,
+    updateProductSuccess,
+    updateProductFail
     } from "../slices/productSlice";
 
 
@@ -78,5 +81,26 @@ export const deleteProduct = id => async (dispatch) => {
 
   } catch (error) {
     dispatch(deleteProductFail(error.response?.data?.message || "Something went wrong"));
+  }
+};
+export const updateProduct = (id,productData) => async (dispatch) => {
+  try {
+    dispatch(updateProductRequest());
+    const { data } = await axios.put(
+    `http://localhost:8000/mfd/admin/products/${id}`,
+      productData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data", 
+        },
+        withCredentials: true, 
+      }
+    );
+    dispatch(updateProductSuccess(data)); 
+
+    // handle success
+    console.log(data.product);
+  } catch (error) {
+    dispatch(updateProductFail(error.response?.data?.message || "Something went wrong"));
   }
 };

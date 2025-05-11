@@ -31,6 +31,7 @@ import Dashboard from "./components/admin/dashboard/Dashboard";
 import ProductList from "./components/admin/dashboard/ProductsList";
 import Addnewproducts from "./components/admin/dashboard/Addnewproducts";
 import AdminDashboard from "./components/admin/AdminDashboard";
+import UpdateProducts from "./components/admin/dashboard/updateProducts";
 
 const App = () => {
     useEffect(() => {
@@ -75,6 +76,7 @@ const App = () => {
                   <Route path="/admin/products" element={<ProtectedRoute isAdmin={true}><ProductList/></ProtectedRoute>}/>
                   <Route path="/admin/products/new" element={<ProtectedRoute isAdmin={true}><Addnewproducts/></ProtectedRoute>}/>
                   <Route path="/admin/dashboard" element={<ProtectedRoute isAdmin={true}><Dashboard/></ProtectedRoute>}/>
+                  <Route path="/admin/products/:id" element={<ProtectedRoute isAdmin={true}><UpdateProducts/></ProtectedRoute>}/>
                 </Routes>
             </Router>
             </PaymentProvider>

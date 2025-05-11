@@ -189,7 +189,7 @@ const ProductList = () => {
                       <td className="px-4 py-2 text-center whitespace-nowrap">
                         <div className="flex justify-center gap-2">
                           <Link
-                            to={`/admin/product/${product._id}`}
+                            to={`/admin/products/${product._id}`}
                             className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-xs"
                           >
                             Edit
