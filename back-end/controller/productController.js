@@ -49,22 +49,6 @@ exports.getSingleProduct = catchAsyncError(async (req, res, next) => {
   });
 });
 
-
-// exports.newProduct = catchAsyncError(async(req,res,next)=>{
-//   let imageUrl;
-//   if(req.file){
-//     imageUrl = `${process.env.BACKEND_URL}/uploads/products/${req.file.originalname}`;
-//     req.body.image = imageUrl;
-//   }
-//    req.body.user = req.user.id;
-
-//     const product = await Product.create(req.body);
-//     res.status(201).json({
-//       success:true,
-//       product
-//     })
-// });
-
 exports.newProduct = catchAsyncError(async (req, res, next) => {
   let imageUrl;
 
@@ -84,25 +68,57 @@ exports.newProduct = catchAsyncError(async (req, res, next) => {
 });
 
 // Update a Product
-exports.updateProduct = async (req,res,next)=>{
-  let product = await Product.findById(req.params.id);
-  if(!product){
-   return res.status(404).json({
-      success:false,
-      message:"Product not found"
+exports.updateProduct = async (req, res, next) => {
+  try {
+    let product = await Product.findById(req.params.id);
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
+    let imageUrl = product.image; // Default to existing image
+
+    // If a new image is uploaded
+    if (req.file) {
+      imageUrl = `${process.env.BACKEND_URL}/uploads/products/${req.file.originalname}`;
+    }
+
+    // If imageCleared is true and no new file is uploaded
+    if (req.body.imageCleared === "true" && !req.file) {
+      imageUrl = ""; 
+    }
+
+    // Build updated data
+    const updatedData = {
+      name: req.body.name,
+      price: req.body.price,
+      description: req.body.description,
+      category: req.body.category,
+      stock: req.body.stock,
+      image: imageUrl,
+      user: req.user.id,
+    };
+
+    product = await Product.findByIdAndUpdate(req.params.id, updatedData, {
+      new: true,
+      runValidators: true,
+    });
+
+    res.status(200).json({
+      success: true,
+      product,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
     });
   }
+};
 
-  product = await Product.findByIdAndUpdate(req.params.id, req.body, {
-    new:true,
-    runValidators:true
-  });
-
-  res.status(200).json({
-    success:true,
-    product
-  });
-}
 
 // Delete a Product
 exports.deleteProduct = async (req,res,next)=>{
@@ -209,20 +225,7 @@ exports.getAllProducts = catchAsyncError(async (req,res)=>{
     products
   })
 });
-// exports.getAllProducts = catchAsyncError(async (req, res) => {
-//   const page = parseInt(req.query.page) || 1;     // Default page = 1
-//   const limit = parseInt(req.query.limit) || 6;   // Default limit = 6
-//   const skip = (page - 1) * limit;
 
-//   const totalProducts = await Product.countDocuments(); // total products count
-//   const products = await Product.find().skip(skip).limit(limit);
-
-//   res.status(200).json({
-//     success: true,
-//     products,
-//     productsCount: totalProducts, // so frontend can calculate total pages
-//   });
-// });
 
 
 

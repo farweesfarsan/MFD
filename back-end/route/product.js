@@ -19,7 +19,7 @@ const { authenticatedUser,authorizedRoles } = require('../middleware/authMiddlew
 
 router.route('/products').get(getProducts);
 router.route('/products/:id').get(getSingleProduct);
-router.route('/products/:id').put(updateProduct);
+// router.route('/products/:id').put(updateProduct);
 
 router.route('/review').put(authenticatedUser,createReview);
 router.route('/review').get(getReviews);
@@ -29,5 +29,6 @@ router.route('/review').delete(deleteReview);
 router.route('/admin/products/new').post(authenticatedUser,authorizedRoles('admin'),upload.single('image'),newProduct);
 router.route('/admin/getAllProducts').get(authenticatedUser,authorizedRoles('admin'),getAllProducts);
 router.route('/admin/products/:id').delete(authenticatedUser,authorizedRoles('admin'),deleteProduct);
+router.route('/admin/products/:id').put(authenticatedUser,authorizedRoles('admin'),upload.single('image'),updateProduct);
 
 module.exports = router;
