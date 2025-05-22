@@ -92,34 +92,31 @@ exports.getAllOrders = catchAsyncError(async (req,res,next)=>{
     });
 })
 
-//Admin: Update Order/ Order Status
-exports.updateStatus = catchAsyncError(async (req,res,next)=>{
+exports.updateStatus = catchAsyncError(async (req, res, next) => {
     const order = await Order.findById(req.params.id);
 
-    if(order.orderStatus == 'Delivered'){
-        return next(new ErrorHandler("Order has been alredy delivered!",400));
+    if (!order) {
+        return next(new ErrorHandler("Order not found!", 404));
     }
 
-    //Updating the Product Stock of each order item
-    order.orderItems.forEach(async orderItem => {
-       await updateStock(orderItem.product,orderItem.quantity);
-    })
+    if (order.orderStatus === 'Delivered') {
+        return next(new ErrorHandler("Order has already been delivered!", 400));
+    }
 
     order.orderStatus = req.body.orderStatus;
-    order.deliveredAt = Date.now();
+
+    if (req.body.orderStatus === 'Delivered') {
+        order.deliveredAt = Date.now();
+    }
+
     await order.save();
 
     res.status(200).json({
-        success:true,
-        
-    })
+        success: true,
+        message: "Order status updated successfully",
+    });
 });
 
-async function updateStock(productId,quantity){
-   const product = await Product.findById(productId);
-   product.stock = product.stock - quantity;
-   product.save({validateBeforeSave:false});
-}
 
 //Admin: Delete Order
 exports.deleteOrder = catchAsyncError(async (req,res,next)=>{
@@ -133,3 +130,61 @@ exports.deleteOrder = catchAsyncError(async (req,res,next)=>{
         success:true
     });
 })
+
+
+exports.cancelOrder = catchAsyncError(async (req, res, next) => {
+  const order = await Order.findById(req.params.id);
+
+  if (!order) {
+    return next(new ErrorHandler("Order not found!", 404));
+  }
+
+  if (order.user.toString() !== req.user.id) {
+    return next(
+      new ErrorHandler("You are not authorized to handle this order!", 403)
+    );
+  }
+
+  if (order.orderStatus === "Delivered") {
+    return next(
+      new ErrorHandler("Cannot cancel this order, it has already been delivered!", 400)
+    );
+  }
+
+  if (order.orderStatus === "Dispatched") {
+    return next(
+      new ErrorHandler("Cannot cancel this order, products are dispatched!", 400)
+    );
+  }
+
+  if (order.orderStatus === "Cancelled") {
+    return next(new ErrorHandler("This order is already cancelled!", 400));
+  }
+
+  const { reason } = req.body;
+
+  if (!reason || reason.trim().length < 5) {
+    return next(new ErrorHandler("Cancellation reason is required!", 400));
+  }
+
+  order.orderStatus = "Cancelled";
+  order.cancelledAt = Date.now();
+  order.cancellationReason = reason;
+
+  // Restore product stock
+  for (const item of order.orderItems) {
+    const product = await Product.findById(item.product);
+    if (product) {
+      product.stock += item.quantity;
+      await product.save({ validateBeforeSave: false });
+    }
+  }
+
+  await order.save();
+
+  res.status(200).json({
+    success: true,
+    message: "Order cancelled successfully",
+    order,
+  });
+});

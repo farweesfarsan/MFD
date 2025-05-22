@@ -11,19 +11,6 @@ const upload = multer({storage: multer.diskStorage({
      }
 })})
 
-// const upload = multer({
-//    storage: multer.diskStorage({
-//        destination: function (req, file, cb) {
-//            cb(null, path.join(__dirname, '..', 'uploads', 'user'));
-//        },
-//        filename: function (req, file, cb) {
-//            cb(null, Date.now() + path.extname(file.originalname));  // Append timestamp to filename
-//        }
-//    })
-// });
-
-
-
 const {registerUser,
        sendOtp,
        verifyOtp,

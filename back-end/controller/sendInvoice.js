@@ -11,7 +11,10 @@ exports.sendInvoice = async (req, res) => {
       return res.status(400).json({ message: 'Email and invoice file are required.' });
     }
 
-    const html = invoiceTemplate(name); // Pass the name into the template
+
+    const myOrders = `${process.env.FRONTEND_URL}/myProfile/orders`
+
+    const html = invoiceTemplate(myOrders,name); // Pass the name into the template
 
     await sendEmail({
       email,
@@ -28,7 +31,7 @@ exports.sendInvoice = async (req, res) => {
 
     fs.unlinkSync(file.path);
 
-    res.status(200).json({ message: 'Invoice sent successfully!' });
+    res.status(200).json({ message: 'Check Your Email!' });
   } catch (error) {
     console.error('Email sending error:', error);
     res.status(500).json({ message: 'Failed to send invoice email.' });

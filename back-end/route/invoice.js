@@ -17,7 +17,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // POST /api/send-invoice
-// router.post('/send-invoice', upload.single('invoice'), sendInvoice);
 router.route('/send-invoice').post( upload.single('invoice'),sendInvoice );
 
 module.exports = router;

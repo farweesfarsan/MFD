@@ -8,7 +8,7 @@ const otpEmailTemplate = (otp) => `
 </head>
 <body style="background-color: #f3f4f6; padding: 20px; font-family: Arial, sans-serif;">
     <div style="max-width: 600px; background-color: #ffffff; padding: 20px; margin: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center;">
-        <img src="https://i.postimg.cc/tJRd1MgD/MLF-SMALL-LOGO-1.png" alt="Milky Fresh Dairies Logo" style="max-width: 150px; margin: 20px auto; display: block;">
+        <img src="https://drive.google.com/uc?export=view&id=1tbJ5EQFp5YN9NQGknOLyr0HqixqPmPWk" alt="Milky Fresh Dairies Logo" style="max-width: 150px; margin: 20px auto; display: block;">
         
         <h2 style="color: #20a39e;">Your OTP Code for Verification</h2>
          

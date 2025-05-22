@@ -19,7 +19,6 @@ const { authenticatedUser,authorizedRoles } = require('../middleware/authMiddlew
 
 router.route('/products').get(getProducts);
 router.route('/products/:id').get(getSingleProduct);
-// router.route('/products/:id').put(updateProduct);
 
 router.route('/review').put(authenticatedUser,createReview);
 router.route('/review').get(getReviews);

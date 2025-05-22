@@ -97,7 +97,12 @@ const orderSchema = mongoose.Schema({
     createdAt:{
         type:Date,
         default:Date.now
-    }
+    },
+    cancelledAt: Date,
+    cancellationReason: {
+     type: String,
+     default: "",
+    },
 
 });
 
