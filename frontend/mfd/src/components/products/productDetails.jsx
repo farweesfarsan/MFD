@@ -84,8 +84,8 @@ const ProductDetails = () => {
                   <img
                     id="product_image"
                     src={
-                      product?.images && product.images.length > 0
-                        ? product.images[0].image
+                      product?.image && product.image.length > 0
+                        ? product.image
                         : "/path/to/placeholder.jpg" // Fallback to a placeholder image
                     }
                     alt={product?.name}

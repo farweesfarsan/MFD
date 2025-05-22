@@ -1,5 +1,6 @@
 import axios from "axios";
-import { loginFail, loginRequest, loginSuccess, clearErrors, registerRequest, registerSuccess, registerFail, loadUserRequest,loadUserSuccess,loadUserFail, logoutSuccess, logoutFail, updateProfileRequest, updateProfileSuccess, updateProfileFail, updatePasswordRequest, updatePasswordSuccess, updatePasswordFail, resetUpdate, forgotPasswordRequest, forgotPasswordSuccess, forgotPasswordFail, resetPasswordRequest, resetPasswordSuccess, resetPasswordFail, sendOtpRequest, sendOtpSuccess, sendOtpFail } from "../slices/authSlice";
+import { loginFail, loginRequest, loginSuccess, clearErrors, registerRequest, registerSuccess, registerFail, loadUserRequest,loadUserSuccess,loadUserFail, logoutSuccess, logoutFail, updateProfileRequest, updateProfileSuccess, updateProfileFail, updatePasswordRequest, updatePasswordSuccess, updatePasswordFail, resetUpdate, forgotPasswordRequest, forgotPasswordSuccess, forgotPasswordFail, resetPasswordRequest, resetPasswordSuccess, resetPasswordFail, sendOtpRequest, sendOtpSuccess, sendOtpFail, sendEmailRequest, sendEmailSuccess, sendEmailFail } from "../slices/authSlice";
+import { usersRequest,usersSuccess,usersFail,userRequest,userSuccess,userFail,deleteUserRequest,deleteUserSuccess,deleteUserFail,updateUserRequest,updateUserSuccess,updateUserFail } from "../slices/userSlice";
 
 export const login = (email, password) => async (dispatch) => {
     try {
@@ -169,5 +170,80 @@ export const sendOtp = (email) => async (dispatch) => {
     }
 };
 
+export const getAllUsers =  async (dispatch) => {
+    try {
+        dispatch(usersRequest());
+        
+        const { data } = await axios.get("http://localhost:8000/user/admin/users", { 
+            withCredentials: true  // Ensures cookies are sent with the request
+        });
+
+        dispatch(usersSuccess(data));
+    } catch (error) {
+        dispatch(usersFail(error.response?.data?.message || "Failed to load user"));
+    }
+};
+
+export const sendEmail = (formData) => async (dispatch) => {
+    try {
+        dispatch(sendEmailRequest());
+
+        const { data } = await axios.post("http://localhost:8000/invoice/send-invoice", formData, {
+            withCredentials: true
+        });
+
+        dispatch(sendEmailSuccess({ message: data.message })); 
+    } catch (error) {
+        dispatch(sendEmailFail(error.response?.data?.message || "Something went wrong!"));
+    }
+};
+
+export const getUser = id =>  async (dispatch) => {
+    try {
+        dispatch(userRequest());
+        
+        const { data } = await axios.get(`http://localhost:8000/user/admin/users/${id}`, { 
+            withCredentials: true  // Ensures cookies are sent with the request
+        });
+
+        dispatch(userSuccess(data));
+    } catch (error) {
+        dispatch(userFail(error.response?.data?.message || "Failed to load user"));
+    }
+};
+
+
+
+export const deleteUser = id =>  async (dispatch) => {
+    try {
+        dispatch(deleteUserRequest());
+        
+        await axios.delete(`http://localhost:8000/user/admin/users/${id}`, { 
+            withCredentials: true  // Ensures cookies are sent with the request
+        });
+
+        dispatch(deleteUserSuccess());
+    } catch (error) {
+        dispatch(deleteUserFail(error.response?.data?.message || "Failed to load user"));
+    }
+};
+
+export const updateUser = (id, formData) => async (dispatch) => {
+
+    try {
+        dispatch(updateUserRequest())
+        const config = {
+            headers: {
+                'Content-type': 'application/json'
+            },
+            withCredentials: true
+        }
+        await axios.put(`http://localhost:8000/user/admin/users/${id}`, formData,config );
+        dispatch(updateUserSuccess())
+    } catch (error) {
+        dispatch(updateUserFail(error.response.data.message))
+    }
+
+}
 
 

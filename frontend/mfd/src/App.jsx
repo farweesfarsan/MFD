@@ -32,6 +32,11 @@ import ProductList from "./components/admin/dashboard/ProductsList";
 import Addnewproducts from "./components/admin/dashboard/Addnewproducts";
 import AdminDashboard from "./components/admin/AdminDashboard";
 import UpdateProducts from "./components/admin/dashboard/updateProducts";
+import OrderList from "./components/admin/dashboard/OrderList";
+import UpdateOrder from "./components/admin/dashboard/UpdateOrder";
+import OrderCancel from "./components/cart/OrderCancel";
+import UserList from "./components/admin/dashboard/UserList";
+import UpdateUser from "./components/admin/dashboard/UpdateUser";
 
 const App = () => {
     useEffect(() => {
@@ -67,6 +72,7 @@ const App = () => {
                         <Route path="/subscription" element={<SubscriptionPlans/>}/>
                         <Route path="/subscription-success" element={<SubscriptionSuccess/>}/>
                         <Route path="/subscription-cancel" element={<SubscriptionCancel/>}/>
+                        <Route path="/order-cancel" element={<OrderCancel/>}/>
 
                     </Routes>
                   
@@ -77,6 +83,10 @@ const App = () => {
                   <Route path="/admin/products/new" element={<ProtectedRoute isAdmin={true}><Addnewproducts/></ProtectedRoute>}/>
                   <Route path="/admin/dashboard" element={<ProtectedRoute isAdmin={true}><Dashboard/></ProtectedRoute>}/>
                   <Route path="/admin/products/:id" element={<ProtectedRoute isAdmin={true}><UpdateProducts/></ProtectedRoute>}/>
+                  <Route path="/admin/orders" element={<ProtectedRoute isAdmin={true}><OrderList/></ProtectedRoute>}/>
+                  <Route path="/admin/order/:id" element={<ProtectedRoute isAdmin={true}><UpdateOrder/></ProtectedRoute>}/>
+                  <Route path="/admin/users" element={<ProtectedRoute isAdmin={true}><UserList/></ProtectedRoute>}/>
+                  <Route path="/admin/users/:id" element={<ProtectedRoute isAdmin={true}><UpdateUser/></ProtectedRoute>}/>
                 </Routes>
             </Router>
             </PaymentProvider>

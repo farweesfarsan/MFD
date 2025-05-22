@@ -6,18 +6,22 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IoArrowBackCircle } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { usePayment } from "../../context/paymentContext";
 import { getSubscriptionDetailsAction } from "../../actions/subscriptionActions";
+import OrderCancel from "./OrderCancel";
+import Loader from "../layouts/Loader";
+import { sendEmail } from "../../actions/usersActions";
+import SimpleLoader from "../layouts/SimpleLoader";
+import axios from "axios";
 
 const PaymentSuccess = () => {
   const [order, setOrder] = useState(null);
   const [isDownloading, setIsDownloading] = useState(false);
   const invoiceRef = useRef();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.authState);
-  const { paymentMethod, setPaymentMethod } = usePayment();
+  const { user, isEmailSent } = useSelector((state) => state.authState);
+  const { paymentMethod } = usePayment();
   const dispatch = useDispatch();
   const { subscriptionDetails } = useSelector(
     (state) => state.subscriptionState
@@ -25,6 +29,10 @@ const PaymentSuccess = () => {
   const { orderDetail } = useSelector((state) => state.orderState);
   const [finalPrice, setFinalPrice] = useState(null);
   const [discount, setDiscount] = useState(null);
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
+
+  const handleOpenCancelModal = () => setIsCancelModalOpen(true);
+  const handleCloseCancelModal = () => setIsCancelModalOpen(false);
 
   useEffect(() => {
     if (user) {
@@ -43,7 +51,6 @@ const PaymentSuccess = () => {
   useEffect(() => {
     const saveOrder = sessionStorage.getItem("recentOrder");
     if (saveOrder) {
-      // setOrder(JSON.parse(saveOrder));
       const parseOrder = JSON.parse(saveOrder);
       if (paymentMethod === "cod") {
         parseOrder.paymentInfo.status = "Not Paid";
@@ -57,6 +64,12 @@ const PaymentSuccess = () => {
       setDiscount(summary.discount);
     }
   }, []);
+
+  useEffect(() => {
+    if (order) {
+      sendPDFViaEmail();
+    }
+  }, [order]);
 
   const downloadPDF = async () => {
     const input = invoiceRef.current;
@@ -83,6 +96,24 @@ const PaymentSuccess = () => {
       setIsDownloading(false);
     }
   };
+
+  const [sendEmail, setSendEmail] = useState(() => {
+    const saved = sessionStorage.getItem("shouldSendEmail");
+    return saved === null ? true : JSON.parse(saved);
+  });
+
+  useEffect(() => {
+    if (sendEmail) {
+      sendPDFViaEmail()
+        .then(() => {
+          setSendEmail(false);
+          sessionStorage.setItem("shouldSendEmail", "false");
+        })
+        .catch((err) => {
+          console.error("Failed to send email:", err);
+        });
+    }
+  }, [sendEmail]);
 
   const sendPDFViaEmail = async () => {
     const input = invoiceRef.current;
@@ -114,7 +145,7 @@ const PaymentSuccess = () => {
         "http://localhost:8000/invoice/send-invoice",
         formData
       );
-      toast.success(response.data.message || "Invoice sent successfully!", {
+      toast.success(response.data.message || "Check Your Email!", {
         position: "bottom-center",
         theme: "dark",
       });
@@ -142,16 +173,15 @@ const PaymentSuccess = () => {
       <ToastContainer />
 
       {isDownloading && (
-        <div className="absolute inset-0 z-40 bg-white bg-opacity-60 backdrop-blur-sm flex justify-center items-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#cc3a52]"></div>
+        <div className="absolute inset-0 z-50 flex items-center justify-center pointer-events-none">
+          <SimpleLoader />
         </div>
       )}
-
       <div
-        className={`max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10 transition duration-300 ${
-          isDownloading ? "blur-sm pointer-events-none select-none" : ""
-        }`}
         ref={invoiceRef}
+        className={`max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10 transition-all duration-300 ${
+          isDownloading ? "blur-sm select-none pointer-events-none" : ""
+        }`}
       >
         {/* Header Row */}
         <div className="flex items-start justify-between mb-6">
@@ -166,15 +196,15 @@ const PaymentSuccess = () => {
             <div className="no-print mt-4 flex flex-col sm:flex-row gap-3">
               <button
                 onClick={downloadPDF}
-                className="w-full sm:w-auto px-4 py-2 bg-[#d33636] text-white font-semibold rounded shadow hover:bg-[#ec6666] transition"
+                className="w-full sm:w-auto px-4 py-2 bg-[#1b6b75]  text-white font-semibold rounded hover:bg-[#0d4e57] shadow  transition"
               >
                 Download PDF
               </button>
               <button
-                onClick={sendPDFViaEmail}
-                className="w-full sm:w-auto px-4 py-2 bg-[#1b6b75] text-white font-semibold rounded shadow hover:bg-[#0d4e57] transition"
+                onClick={handleOpenCancelModal}
+                className="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-lg transition-all duration-300"
               >
-                Send Invoice to Email
+                Cancel Order
               </button>
             </div>
           </div>
@@ -240,7 +270,6 @@ const PaymentSuccess = () => {
                 {order.paymentInfo.status}
               </span>
             </p>
-            {/* <p><strong>Payment Method:</strong> Online Payment</p> */}
             <p>
               <strong>Payment Method:</strong>{" "}
               {paymentMethod === "cod" ? "Cash on Delivery" : "Online Payment"}
@@ -341,12 +370,26 @@ const PaymentSuccess = () => {
       <div className="no-print flex justify-center my-10">
         <button
           onClick={() => navigate("/")}
-          className="flex items-center gap-3 px-6 py-3 bg-[#1b6b75] text-white text-lg font-medium rounded hover:bg-[#155e67] transition"
+          className={`flex items-center gap-3 px-6 py-3 bg-[#1b6b75] text-white text-lg font-medium rounded hover:bg-[#155e67] transition ${
+            isDownloading ? "blur-sm select-none pointer-events-none" : ""
+          }`}
         >
           <IoArrowBackCircle size={28} />
           Back to Home
         </button>
       </div>
+
+      {/* Cancel Order Modal */}
+      {isCancelModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+          <div className="bg-white rounded-lg shadow-xl p-6 max-w-sm w-full text-center">
+            <OrderCancel
+              orderId={orderDetail._id}
+              onClose={handleCloseCancelModal}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

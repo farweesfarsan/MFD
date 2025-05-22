@@ -7,6 +7,7 @@ const authSlice = createSlice({
         authenticatedUser: false,
         isUpdated: false,
         isUpdatedPass:false,
+        isEmailSent: false,
         otpSent: false, 
         otp: null,
         otpMessage: null,
@@ -233,6 +234,30 @@ const authSlice = createSlice({
                 error:null,
                 isUpdatedPass:false
             };
+        },
+        sendEmailRequest(state) {
+            return {
+                ...state,
+                loading: true,
+                isEmailSent: false,
+                message:null
+            };
+        },
+        sendEmailSuccess(state,action) {
+            return {
+                ...state,
+                loading: false,
+                isEmailSent: true,
+                message: action.payload.message
+            };
+        },
+        sendEmailFail(state, action) {
+            return {
+                ...state,
+                loading: false,
+                isEmailSent: false,
+                error: action.payload,
+            };
         }
         
     },
@@ -268,7 +293,10 @@ export const {
     resetPasswordFail,
     sendOtpRequest,
     sendOtpSuccess,
-    sendOtpFail
+    sendOtpFail,
+    sendEmailRequest,
+    sendEmailSuccess,
+    sendEmailFail
 } = actions; 
 
 export default reducer;
