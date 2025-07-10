@@ -9,6 +9,7 @@ const sendEmail = require("../utils/emailServer");
 const { response } = require("express");
 const forgotPasswordTemplate = require("../emailTemplates/forgotPasswordTemplate");
 const otpEmailTemplate = require("../emailTemplates/otpEmailTemplate");
+const DeliveryStaff = require('../models/deliveryStaff');
 
 // Register user - http://localhost:8000/user/register
 exports.registerUser = catchAssyncError(async (req, res, next) => {
@@ -24,6 +25,7 @@ exports.registerUser = catchAssyncError(async (req, res, next) => {
     password,
     email,
     avatar,
+    role:'Customer'
   });
 
   sendToken(user, 201, res);
@@ -127,14 +129,15 @@ exports.loginUser = catchAssyncError(async (req, res, next) => {
   }
 
   //finding the user database
-  const user = await User.findOne({ email }).select("+password");
+  // const user = await User.findOne({ email }).select("+password");
+   const user = await User.findOne({ email }).select("+password");
 
   if (!user) {
     return next(new ErrorHandler("Invalid email or password", 401));
   }
 
   if (!(await user.isPasswordValid(password))) {
-    return next(new ErrorHandler("Invalid email or password", 401));
+    return next(new ErrorHandler("Invalid password", 401));
   }
 
   sendToken(user, 201, res);
@@ -158,7 +161,7 @@ exports.forgotPassword = catchAssyncError(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
-    return next(new ErrorHandler("User not found with this email"));
+    return next(new ErrorHandler("User not found with this email",404));
   }
 
   // Generate reset token
@@ -204,13 +207,21 @@ exports.resetPassword = catchAssyncError(async (req, res, next) => {
     },
   });
 
-  if (!user) {
-    return next(new ErrorHandler("Password Reset token is invalid or expired"));
-  }
+  // if (!user) {
+  //   return next(new ErrorHandler("Password Reset token is invalid or expired"));
+  // }
 
-  if (req.body.password !== req.body.confirmedPassword) {
-    next(new ErrorHandler("Password does not matched!"));
-  }
+  // if (req.body.password !== req.body.confirmedPassword) {
+  //   next(new ErrorHandler("Password does not matched!"));
+  // }
+
+  if (!user) {
+  return next(new ErrorHandler("Password Reset token is invalid or expired"));
+}
+
+if (req.body.password !== req.body.confirmedPassword) {
+  return next(new ErrorHandler("Password does not matched!"));
+}
 
   user.password = req.body.password;
   user.resetPasswordToken = undefined;
@@ -280,11 +291,103 @@ exports.getAllUsers = catchAssyncError(async (req, res, next) => {
 });
 
 //Admin: Get user by id
+// exports.getUserById = catchAssyncError(async (req, res, next) => {
+//   const user = await User.findById(req.params.id);
+//   if (!user) {
+//     return next(
+//       new ErrorHandler(`User not found with this id: ${req.params.id}`)
+//     );
+//   }
+
+//   res.status(200).json({
+//     success: true,
+//     user,
+//   });
+// });
 exports.getUserById = catchAssyncError(async (req, res, next) => {
   const user = await User.findById(req.params.id);
   if (!user) {
     return next(
       new ErrorHandler(`User not found with this id: ${req.params.id}`)
+    );
+  }
+
+  let deliveryStaffInfo = {};
+
+  if (user.role === "DeliveryStaff") {
+    const deliveryStaff = await DeliveryStaff.findOne({ userId: req.params.id });
+
+    if (deliveryStaff) {
+      deliveryStaffInfo = {
+        nic: deliveryStaff.nic,
+        mobileNo: deliveryStaff.mobileNo,
+        address: deliveryStaff.address,
+      };
+    } else {
+      return next(new ErrorHandler("Delivery staff info not found", 404));
+    }
+  }
+
+  res.status(200).json({
+    success: true,
+    user: {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      ...deliveryStaffInfo,
+    },
+  });
+});
+
+
+//Admin: Update User
+// exports.updateUser = catchAssyncError(async (req, res, next) => {
+//   let newUserData = {
+//     name: req.body.name,
+//     email: req.body.email,
+//     role: req.body.role,
+//   };
+
+//   const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+//     new: true,
+//     runValidators: true,
+//   });
+
+//   res.status(200).json({
+//     success: true,
+//     user,
+//   });
+// });
+
+exports.updateUser = catchAssyncError(async (req, res, next) => {
+  const userId = req.params.id;
+
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+    role: req.body.role,
+  };
+
+  // Update user base data
+  const user = await User.findByIdAndUpdate(userId, newUserData, {
+    new: true,
+    runValidators: true,
+  });
+
+  // Update deliveryStaff info if role is deliveryStaff
+  if (req.body.role === "DeliveryStaff") {
+    const deliveryData = {
+      nic: req.body.nic,
+      mobile: req.body.mobile,
+      address: req.body.address,
+    };
+
+    // assuming user has a relatedId to DeliveryStaff schema
+    await DeliveryStaff.findOneAndUpdate(
+      { user: userId },  // or use user.relatedId if mapped that way
+      deliveryData,
+      { new: true, runValidators: true }
     );
   }
 
@@ -294,24 +397,8 @@ exports.getUserById = catchAssyncError(async (req, res, next) => {
   });
 });
 
-//Admin: Update User
-exports.updateUser = catchAssyncError(async (req, res, next) => {
-  let newUserData = {
-    name: req.body.name,
-    email: req.body.email,
-    role: req.body.role,
-  };
 
-  const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
-    new: true,
-    runValidators: true,
-  });
 
-  res.status(200).json({
-    success: true,
-    user,
-  });
-});
 
 //Admin: Delete a User
 exports.deleteUser = catchAssyncError(async (req, res, next) => {
@@ -327,4 +414,7 @@ exports.deleteUser = catchAssyncError(async (req, res, next) => {
     success: true,
     message: "User deleted successfully!",
   });
+
+  
+
 });

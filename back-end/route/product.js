@@ -13,7 +13,7 @@ const upload = multer({storage: multer.diskStorage({
 
 
 
-const { getProducts, newProduct, getSingleProduct, updateProduct, deleteProduct, createReview, getReviews, deleteReview, getAllProducts } = require('../controller/productController');
+const { getProducts, newProduct, getSingleProduct, updateProduct, deleteProduct, createReview, getReviews, deleteReview, getAllReviews, getAllProducts } = require('../controller/productController');
 const router = express.Router();
 const { authenticatedUser,authorizedRoles } = require('../middleware/authMiddleware');
 
@@ -21,13 +21,15 @@ router.route('/products').get(getProducts);
 router.route('/products/:id').get(getSingleProduct);
 
 router.route('/review').put(authenticatedUser,createReview);
-router.route('/review').get(getReviews);
-router.route('/review').delete(deleteReview);
+
 
 // Admin route
 router.route('/admin/products/new').post(authenticatedUser,authorizedRoles('admin'),upload.single('image'),newProduct);
 router.route('/admin/getAllProducts').get(authenticatedUser,authorizedRoles('admin'),getAllProducts);
 router.route('/admin/products/:id').delete(authenticatedUser,authorizedRoles('admin'),deleteProduct);
 router.route('/admin/products/:id').put(authenticatedUser,authorizedRoles('admin'),upload.single('image'),updateProduct);
+router.route('/admin/review').get(authenticatedUser,authorizedRoles('admin'),getReviews);
+router.route('/admin/allReviews').get(authenticatedUser,authorizedRoles('admin'),getAllReviews);
+router.route('/admin/review').delete(authenticatedUser,authorizedRoles('admin'),deleteReview);
 
 module.exports = router;

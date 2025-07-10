@@ -26,6 +26,8 @@ const {registerUser,
        updateUser,
        deleteUser
        } = require('../controller/authController');
+
+const { createDeliveryStaff,getDeliveryStaff }   = require('../controller/staffController')  
 const router = express.Router();
 const {authenticatedUser, authorizedRoles} = require('../middleware/authMiddleware');
 
@@ -41,12 +43,16 @@ router.route('/myProfile').get(authenticatedUser, getUserProfile);
 router.route('/password/change').put(authenticatedUser,changePassword);
 // router.route('/update').put(authenticatedUser, updateProfile);
 router.route('/update').put(authenticatedUser, upload.single('avatar'), updateProfile);
+router.route('/deliveryStaff/:id').get(authenticatedUser,getDeliveryStaff);
+
 
 
 //Admin Routes
 router.route('/admin/users').get(authenticatedUser,authorizedRoles('admin'),getAllUsers);
+// router.route('/admin/deliveryStaff/new').post(authenticatedUser,authorizedRoles('admin'),createDeliveryStaff);
 router.route('/admin/users/:id').get(authenticatedUser,authorizedRoles('admin'),getUserById);
 router.route('/admin/users/:id').put(authenticatedUser,authorizedRoles('admin'),updateUser);
 router.route('/admin/users/:id').delete(authenticatedUser,authorizedRoles('admin'),deleteUser);
+router.route('/staff/new').post(authenticatedUser,authorizedRoles('admin'), upload.single('avatar'),createDeliveryStaff);
 
 module.exports = router;

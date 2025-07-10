@@ -38,7 +38,7 @@ const userSchema = mongoose.Schema({
     otpExpire: Date,
     role:{
         type:String,
-        default:'user'
+        enum:['DeliveryStaff','Customer','Admin','user'],
     },
     
     resetPasswordToken: String,
@@ -69,22 +69,19 @@ userSchema.methods.isPasswordValid = async function(enteredPassword){
 }
 
 userSchema.methods.getResetToken = function(){
-    //Generate token
     const token = crypto.randomBytes(20).toString('hex');
 
-    //Generate Hash to this resetPasswordToken
    this.resetPasswordToken = crypto.createHash('sha256').update(token).digest('hex');
 
-   //Set token expires time
    this.resetPasswordExpireToken = Date.now() + 30 * 60 * 1000
 
    return token;
 }
 
 userSchema.methods.generateOtp = function () {
-    const otp = Math.floor(1000 + Math.random() * 9000).toString(); // Generate 4-digit OTP
+    const otp = Math.floor(1000 + Math.random() * 9000).toString();
     this.otp = otp;
-    this.otpExpire = Date.now() + 10 * 60 * 1000; // OTP valid for 10 minutes
+    this.otpExpire = Date.now() + 10 * 60 * 1000; 
     return otp;
 };
 

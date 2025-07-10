@@ -59,6 +59,15 @@ exports.newProduct = catchAsyncError(async (req, res, next) => {
 
   req.body.user = req.user.id;
 
+  // ✅ Check if product name already exists
+  const existingProduct = await Product.findOne({ name: req.body.name });
+  if (existingProduct) {
+    return res.status(400).json({
+      success: false,
+      message: "This Product Already Exist",
+    });
+  }
+
   const product = await Product.create(req.body);
 
   res.status(201).json({
@@ -142,7 +151,7 @@ exports.createReview = catchAsyncError(async (req, res, next) =>{
 
   const review = {
       user : req.user.id,
-      rating,
+      rating: Number(rating),
       comment
   }
 
@@ -157,7 +166,7 @@ exports.createReview = catchAsyncError(async (req, res, next) =>{
       product.reviews.forEach(review => {
           if(review.user.toString() == req.user.id.toString()){
               review.comment = comment
-              review.rating = rating
+              review.rating = Number(rating)
           }
 
       })
@@ -169,7 +178,7 @@ exports.createReview = catchAsyncError(async (req, res, next) =>{
   }
   //find the average of the product reviews
   product.ratings = product.reviews.reduce((acc, review) => {
-      return review.rating + acc;
+      return Number(review.rating)  + acc;
   }, 0) / product.reviews.length;
   product.ratings = isNaN(product.ratings)?0:product.ratings;
 
@@ -184,7 +193,7 @@ exports.createReview = catchAsyncError(async (req, res, next) =>{
 
 //Get reviews => mfd/review?id={productId}
 exports.getReviews = catchAsyncError(async (req,res,next)=>{
-   const product = await Product.findById(req.query.id);
+   const product = await Product.findById(req.query.id).populate('reviews.user', 'name email');
 
    res.status(200).json({
     success:true,
@@ -225,6 +234,33 @@ exports.getAllProducts = catchAsyncError(async (req,res)=>{
     products
   })
 });
+
+exports.getAllReviews = catchAsyncError(async (req, res, next) => {
+  const products = await Product.find().populate("reviews.user", "name email");
+
+  const allReviews = [];
+
+  for (const product of products) {
+    for (const review of product.reviews) {
+      allReviews.push({
+        _id: review._id,
+        product: {
+          _id: product._id,
+          name: product.name,
+        },
+        user: review.user,
+        rating: review.rating,
+        comment: review.comment,
+      });
+    }
+  }
+
+  res.status(200).json({
+    success: true,
+    reviews: allReviews,
+  });
+});
+
 
 
 
