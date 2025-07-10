@@ -148,7 +148,68 @@ const productSlice = createSlice({
                 ...state,
                 isProductUpdated: false
             }
-        }
+        },
+        reviewRequest(state, action){
+            return {
+                ...state,
+                loading: true
+            }
+        },
+        reviewSuccess(state, action){
+           return {
+               ...state,
+               loading: false,
+               reviews: action.payload.reviews  
+             }
+        },
+        reviewFail(state, action){
+            return {
+                ...state,
+                loading: false,
+                error:  action.payload
+            }
+        },
+        deleteReviewRequest(state, action){
+            return {
+                ...state,
+                loading: true
+            }
+        },
+        deleteReviewSuccess(state, action){
+            return {
+                ...state,
+                loading: false,
+                isReviewDeleted: true
+            }
+        },
+        deleteReviewFail(state, action){
+            return {
+                ...state,
+                loading: false,
+                error:  action.payload,
+            }
+        },
+        clearReviewDelete(state, action) {
+            return {
+                ...state,
+                isReviewDeleted: false
+            }
+        },
+//         getAllReviewsSuccess(state, action) {
+//   return {
+//     ...state,
+//     loading: false,
+//     reviews: action.payload,
+//   };
+// },
+// getAllReviewsFail(state, action) {
+//   return {
+//     ...state,
+//     loading: false,
+//     error: action.payload,
+//   };
+// }
+
     }
 });
 
@@ -174,7 +235,16 @@ export const {
     updateProductRequest,
     updateProductSuccess,
     updateProductFail,
-    clearProductUpdated
+    clearProductUpdated,
+    deleteReviewRequest,
+    deleteReviewSuccess,
+    deleteReviewFail,
+    clearReviewDelete,
+    reviewRequest,
+    reviewSuccess,
+    reviewFail
+//     getAllReviewsSuccess,
+//   getAllReviewsFail
 } = actions;
 
 export default reducer;

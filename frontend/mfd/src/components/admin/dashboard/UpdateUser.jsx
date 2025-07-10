@@ -12,6 +12,9 @@ const UpdateUser = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
+  const [nic, setNic] = useState("");
+  const [address, setAddress] = useState("");
+  const [mobileNo,setMobileNo] = useState("");
 
   const userRole = [
     "user",
@@ -33,6 +36,12 @@ const UpdateUser = () => {
     formData.append("name", name);
     formData.append("email", email);
     formData.append("role", role);
+
+    if (role === "DeliveryStaff") {
+    formData.append("nic", nic);
+    formData.append("mobileNo", mobileNo);
+    formData.append("address", address);
+  }
    
     dispatch(updateUser(userId, formData));
   };
@@ -66,6 +75,12 @@ const UpdateUser = () => {
       setName(user.name || "");
       setEmail(user.email || "");
       setRole(user.role || "");
+    }
+
+    if(user.role === 'DeliveryStaff'){
+      setNic(user.nic || "");
+      setMobileNo(user.mobileNo || "");
+      setAddress(user.address || "");
     }
   }, [user]);
 
@@ -173,7 +188,57 @@ const UpdateUser = () => {
               </select>
             </div>
 
-        
+            {role === "DeliveryStaff" ? (
+              <>
+              <div className="mb-4">
+              <label
+                htmlFor="price_field"
+                className="block mb-2 text-sm font-medium text-gray-700"
+              >
+                NIC
+              </label>
+              <input
+                type="text"
+                id="price_field"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-blue-500"
+                value={nic}
+                onChange={(e) => setNic(e.target.value)}
+              />
+            </div>
+            
+             <div className="mb-4">
+              <label
+                htmlFor="price_field"
+                className="block mb-2 text-sm font-medium text-gray-700"
+              >
+                MobileNo
+              </label>
+              <input
+                type="text"
+                id="price_field"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-blue-500"
+                value={mobileNo}
+                onChange={(e) => setMobileNo(e.target.value)}
+              />
+            </div>
+            
+             <div className="mb-4">
+              <label
+                htmlFor="price_field"
+                className="block mb-2 text-sm font-medium text-gray-700"
+              >
+                Address
+              </label>
+              <input
+                type="text"
+                id="price_field"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-blue-500"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              />
+            </div>
+            </>
+            ):null}
             <button
               type="submit"
               disabled={loading}

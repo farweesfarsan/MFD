@@ -127,7 +127,7 @@ const OrderList = () => {
                       ID
                     </th>
                     <th className="px-4 py-2 text-start text-xs font-medium text-white uppercase min-w-[150px]">
-                      Name
+                      Product Count
                     </th>
                     <th className="px-4 py-2 text-center text-xs font-medium text-white uppercase min-w-[100px]">
                       Price

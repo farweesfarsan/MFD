@@ -10,6 +10,7 @@ import {
   FaStar,
   FaChevronDown
 } from 'react-icons/fa';
+import { LuUsers } from "react-icons/lu";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -74,7 +75,7 @@ const Sidebar = () => {
           </li>
 
           {/* Users */}
-          <li>
+          {/* <li>
             <Link
               to="/admin/users"
               className="flex items-center gap-2 p-2 rounded hover:bg-white hover:text-gray-800 transition"
@@ -82,7 +83,39 @@ const Sidebar = () => {
               <FaUsers />
               Users
             </Link>
+          </li> */}
+          <li>
+            <details className="group">
+              <summary className="flex items-center justify-between p-2 cursor-pointer rounded hover:bg-white hover:text-gray-800 transition list-none">
+                <span className="flex items-center gap-2">
+                  <FaUsers/>
+                  Users
+                </span>
+                <FaChevronDown className="transition-transform duration-200 group-open:rotate-180" />
+              </summary>
+              <ul className="ml-6 mt-2 space-y-2">
+                <li>
+                  <button
+                    onClick={() => navigate('/admin/users')}
+                    className="flex items-center gap-2 p-2 rounded w-full text-left hover:bg-white hover:text-gray-800 transition"
+                  >
+                    <LuUsers/>
+                    All Users
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => navigate('/admin/users/newDeliveryStaff')}
+                    className="flex items-center gap-2 p-2 rounded w-full text-left hover:bg-white hover:text-gray-800 transition"
+                  >
+                    <FaPlus />
+                    Create a Delivery Staff
+                  </button>
+                </li>
+              </ul>
+            </details>
           </li>
+
 
           {/* Reviews */}
           <li>

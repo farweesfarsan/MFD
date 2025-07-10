@@ -37,6 +37,9 @@ import UpdateOrder from "./components/admin/dashboard/UpdateOrder";
 import OrderCancel from "./components/cart/OrderCancel";
 import UserList from "./components/admin/dashboard/UserList";
 import UpdateUser from "./components/admin/dashboard/UpdateUser";
+import DeliveryStaff from "./components/user/DeliveryStaff";
+import DeliveryStaffPage from "./page/DeliverysStaffPage";
+import ReviewList from "./components/admin/dashboard/ReviewList";
 
 const App = () => {
     useEffect(() => {
@@ -86,7 +89,11 @@ const App = () => {
                   <Route path="/admin/orders" element={<ProtectedRoute isAdmin={true}><OrderList/></ProtectedRoute>}/>
                   <Route path="/admin/order/:id" element={<ProtectedRoute isAdmin={true}><UpdateOrder/></ProtectedRoute>}/>
                   <Route path="/admin/users" element={<ProtectedRoute isAdmin={true}><UserList/></ProtectedRoute>}/>
+                  <Route path="/admin/reviews" element={<ProtectedRoute isAdmin={true}><ReviewList/></ProtectedRoute>}/>
                   <Route path="/admin/users/:id" element={<ProtectedRoute isAdmin={true}><UpdateUser/></ProtectedRoute>}/>
+                  <Route path="/admin/users/newDeliveryStaff" element={<ProtectedRoute isAdmin={true}><DeliveryStaff/></ProtectedRoute>}/>
+                   
+                  <Route path="/deliveryStaff/deliveryStaffPage" element={<ProtectedRoute isDeliveryStaff={true}><DeliveryStaffPage/></ProtectedRoute>}/>
                 </Routes>
             </Router>
             </PaymentProvider>

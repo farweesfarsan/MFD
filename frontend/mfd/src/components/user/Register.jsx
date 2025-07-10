@@ -66,7 +66,7 @@ const Register = () => {
       });
 
       dispatch(resetUpdate()); 
-      navigate('/sendOtp', { state: { userData, avatar } });
+      navigate('/sendOtp', { state: { userData, avatar, userType:'user' } });
     } catch (error) {
       console.error('Error sending OTP:', error);
 

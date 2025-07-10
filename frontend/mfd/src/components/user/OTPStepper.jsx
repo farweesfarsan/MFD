@@ -1,16 +1,15 @@
-
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import { sendOtp, register } from '../../actions/usersActions';
+import { sendOtp, register, registerStaff } from '../../actions/usersActions';
 
 const OTPStepper = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     
-    const { userData, avatar } = location.state || {};
+    const { userData, avatar, userType } = location.state || {};
     const { loading, error, otp, otpExpireDate } = useSelector(state => state.authState);
     
     const [otpValues, setOtpValues] = useState(['', '', '', '']);
@@ -94,12 +93,39 @@ const OTPStepper = () => {
         const enteredOTP = otpValues.join('');
         if (enteredOTP === otp?.toString()) {
             const formData = new FormData();
-            formData.append('name', userData.name);
-            formData.append('email', userData.email);
-            formData.append('password', userData.password);
-            formData.append('avatar', avatar);
+            // formData.append('name', userData.name);
+            // formData.append('email', userData.email);
+            // formData.append('password', userData.password);
+            // formData.append('avatar', avatar);
 
-            dispatch(register(formData))
+            if(userType === "deliveryStaff"){
+                formData.append('name',userData.name);
+                formData.append('password',userData.password);
+                formData.append('avatar',userData.avatar);
+                formData.append('email',userData.email);
+                formData.append('nic', userData.nic);
+                formData.append('mobileNo', userData.mobileNo);
+                formData.append('address', userData.address);
+            }
+
+            if(userType === "user"){
+                formData.append('name',userData.name);
+                formData.append('password',userData.password);
+                formData.append('avatar',userData.avatar);
+                formData.append('email',userData.email);
+            }
+
+           let registrationAction;
+             switch(userType) {
+                case 'user':
+                registrationAction = register;
+                break;
+
+                case 'deliveryStaff':
+                registrationAction = registerStaff
+             } 
+
+            dispatch(registrationAction(formData))
                 .then(() => {
                     toast.success('Registration complete! You can now log in.', {
                         theme: 'dark',

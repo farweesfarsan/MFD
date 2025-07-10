@@ -69,6 +69,28 @@ const authSlice = createSlice({
                 error: action.payload,
             };
         },
+        registerDeliveryStaffRequest(state) {
+            return {
+                ...state,
+                loading: true,  
+                error: null,
+            };
+        },
+        registerDeliveryStaffSuccess(state, action) {
+            return {
+                loading: false,  
+                authenticatedUser: true,
+                staff: action.payload.staff,
+                error: null,
+            };
+        },
+        registerDeliveryStaffFail(state, action) {
+            return {
+                ...state,
+                loading: false,  
+                error: action.payload,
+            };
+        },
         loadUserRequest(state) {
             return {
                 ...state,
@@ -296,7 +318,10 @@ export const {
     sendOtpFail,
     sendEmailRequest,
     sendEmailSuccess,
-    sendEmailFail
+    sendEmailFail,
+    registerDeliveryStaffRequest,
+    registerDeliveryStaffSuccess,
+    registerDeliveryStaffFail
 } = actions; 
 
 export default reducer;

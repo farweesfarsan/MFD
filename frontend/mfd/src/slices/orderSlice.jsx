@@ -45,7 +45,8 @@ const orderSlice = createSlice({
         return {
             ...state,
             loading: false,
-            adminOrdersData: action.payload.orders
+            adminOrdersData: action.payload.orders,
+            totalamount: action.payload.totalamount
         }
       },
       adminOrderFail(state, action) {

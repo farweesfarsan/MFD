@@ -1,5 +1,5 @@
 import axios from "axios";
-import { loginFail, loginRequest, loginSuccess, clearErrors, registerRequest, registerSuccess, registerFail, loadUserRequest,loadUserSuccess,loadUserFail, logoutSuccess, logoutFail, updateProfileRequest, updateProfileSuccess, updateProfileFail, updatePasswordRequest, updatePasswordSuccess, updatePasswordFail, resetUpdate, forgotPasswordRequest, forgotPasswordSuccess, forgotPasswordFail, resetPasswordRequest, resetPasswordSuccess, resetPasswordFail, sendOtpRequest, sendOtpSuccess, sendOtpFail, sendEmailRequest, sendEmailSuccess, sendEmailFail } from "../slices/authSlice";
+import { loginFail, loginRequest, loginSuccess, clearErrors, registerRequest, registerSuccess, registerFail, loadUserRequest,loadUserSuccess,loadUserFail, logoutSuccess, logoutFail, updateProfileRequest, updateProfileSuccess, updateProfileFail, updatePasswordRequest, updatePasswordSuccess, updatePasswordFail, resetUpdate, forgotPasswordRequest, forgotPasswordSuccess, forgotPasswordFail, resetPasswordRequest, resetPasswordSuccess, resetPasswordFail, sendOtpRequest, sendOtpSuccess, sendOtpFail, sendEmailRequest, sendEmailSuccess, sendEmailFail, registerDeliveryStaffRequest,registerDeliveryStaffSuccess,registerDeliveryStaffFail } from "../slices/authSlice";
 import { usersRequest,usersSuccess,usersFail,userRequest,userSuccess,userFail,deleteUserRequest,deleteUserSuccess,deleteUserFail,updateUserRequest,updateUserSuccess,updateUserFail } from "../slices/userSlice";
 
 export const login = (email, password) => async (dispatch) => {
@@ -244,6 +244,26 @@ export const updateUser = (id, formData) => async (dispatch) => {
         dispatch(updateUserFail(error.response.data.message))
     }
 
-}
+};
+
+export const registerStaff = (userData) => async (dispatch) => {
+    try {
+        dispatch(registerDeliveryStaffRequest());  
+
+        const config = {
+            headers: {
+                'Content-type': 'multipart/form-data'
+            },
+            withCredentials: true
+        }
+
+        const { data } = await axios.post("http://localhost:8000/user/staff/new", userData, config);
+        dispatch(registerDeliveryStaffSuccess(data));  
+    } catch (error) {
+        dispatch(registerDeliveryStaffFail(error.response?.data?.message || "Registration failed")); 
+    }
+};
+
+
 
 

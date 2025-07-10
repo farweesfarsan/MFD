@@ -5,7 +5,13 @@ import { productFail, productRequest, productSuccess, createReviewRequest,
     deleteProductSuccess,deleteProductFail,clearProductDelete, 
     updateProductRequest,
     updateProductSuccess,
-    updateProductFail
+    updateProductFail,
+    reviewSuccess,
+    reviewRequest,
+    reviewFail,
+    deleteReviewRequest,
+    deleteReviewSuccess,
+    deleteReviewFail
     } from "../slices/productSlice";
 
 
@@ -104,3 +110,55 @@ export const updateProduct = (id,productData) => async (dispatch) => {
     dispatch(updateProductFail(error.response?.data?.message || "Something went wrong"));
   }
 };
+
+export const getReviews = id => async (dispatch) => {
+  try {
+    dispatch(reviewRequest());
+
+    const { data } = await axios.get(`http://localhost:8000/mfd/admin/review`, {
+      params: { id },
+      withCredentials: true, 
+    });
+
+    dispatch(reviewSuccess(data));
+  } catch (error) {
+    dispatch(reviewFail(error.response?.data?.message || "Something went wrong"));
+  }
+};
+
+
+export const deleteReviews = (productId, id) => async (dispatch) => {
+  try {
+    dispatch(deleteReviewRequest());
+
+    await axios.delete(
+      `http://localhost:8000/mfd/admin/review`,
+      {
+        params: { productId, id },
+        withCredentials: true, // ✅ must be inside config
+      }
+    );
+
+    dispatch(deleteReviewSuccess());
+  } catch (error) {
+    dispatch(
+      deleteReviewFail(error.response?.data?.message || "Something went wrong")
+    );
+  }
+};
+
+export const getAllReviews = () => async (dispatch) => {
+  try {
+    dispatch(reviewRequest());
+
+    const { data } = await axios.get(`http://localhost:8000/mfd/admin/allReviews`, {
+      withCredentials: true, 
+    });
+
+    dispatch(reviewSuccess(data));
+  } catch (error) {
+    dispatch(reviewFail(error.response?.data?.message || "Something went wrong"));
+  }
+};
+
+
