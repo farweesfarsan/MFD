@@ -73,17 +73,7 @@ const Sidebar = () => {
               Orders
             </Link>
           </li>
-
-          {/* Users */}
-          {/* <li>
-            <Link
-              to="/admin/users"
-              className="flex items-center gap-2 p-2 rounded hover:bg-white hover:text-gray-800 transition"
-            >
-              <FaUsers />
-              Users
-            </Link>
-          </li> */}
+          
           <li>
             <details className="group">
               <summary className="flex items-center justify-between p-2 cursor-pointer rounded hover:bg-white hover:text-gray-800 transition list-none">

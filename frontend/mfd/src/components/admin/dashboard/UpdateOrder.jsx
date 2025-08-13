@@ -148,10 +148,9 @@ const UpdateOrder = () => {
           {/* Shipping Info */}
           <section className="mb-6">
             <h2 className="text-xl font-semibold text-gray-700 mb-3 border-b pb-2">Delivery Info</h2>
-            <p className="mb-1"><span className="font-medium text-gray-600">Name:</span> Tameem</p>
             <p className="mb-1"><span className="font-medium text-gray-600">Phone:</span> {order.deliveryInfo?.phoneNo}</p>
             <p className="mb-1"><span className="font-medium text-gray-600">Address:</span> {order.deliveryInfo?.address}, {order.deliveryInfo?.city}</p>
-            <p><span className="font-medium text-gray-600">Amount:</span> <span className="text-green-700 font-semibold">{order.finalPrice}</span></p>
+            <p><span className="font-medium text-gray-600">Amount:</span> <span className="text-green-700 font-semibold">Rs.{order.finalPrice}</span></p>
           </section>
 
           {/* Payment */}

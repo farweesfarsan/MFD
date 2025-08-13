@@ -76,7 +76,7 @@ const ProductSearch = () => {
                     onChange={(e) => setPriceRange(Number(e.target.value))}
                     className="w-48 cursor-pointer"
                   />
-                  <span className="text-gray-700 font-medium">${priceRange}</span>
+                  <span className="text-gray-700 font-medium">Rs.{priceRange}</span>
                 </div>
               </div>
             </div>

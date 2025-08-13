@@ -148,26 +148,27 @@ export const resetPassword = (formData,token) => async (dispatch) => {
 };
 
 export const sendOtp = (email) => async (dispatch) => {
-    try {
-        dispatch(sendOtpRequest());
+  try {
+    dispatch(sendOtpRequest());
 
-        const config = {
-            headers: {
-                "Content-Type": "application/json"
-            }
-        };
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
 
-        const { data } = await axios.post(
-            "http://localhost:8000/user/sendOtp",
-            { email },
-            config
-        );
+    const { data } = await axios.post(
+      "http://localhost:8000/user/sendOtp",
+      { email },
+      config
+    );
 
-        dispatch(sendOtpSuccess(data));
-        // dispatch(resetUpdate());  
-    } catch (error) {
-        dispatch(sendOtpFail(error.response?.data?.message || "Failed to send OTP"));
-    }
+    dispatch(sendOtpSuccess(data));
+  } catch (error) {
+    const message = error.response?.data?.message || "Failed to send OTP";
+    dispatch(sendOtpFail(message));
+    throw new Error(message);  // <-- This is crucial
+  }
 };
 
 export const getAllUsers =  async (dispatch) => {

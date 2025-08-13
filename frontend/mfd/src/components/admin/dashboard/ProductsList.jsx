@@ -181,7 +181,7 @@ const ProductList = () => {
                         </div>
                       </td>
                       <td className="px-4 py-2 text-center whitespace-nowrap text-gray-800">
-                        ${product.price}
+                        Rs.{product.price}
                       </td>
                       <td className="px-4 py-2 text-center whitespace-nowrap text-gray-800">
                         {product.stock}

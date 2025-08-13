@@ -21,22 +21,30 @@ const DeliveryStaff = () => {
   const validationSchema = Yup.object({
     name: Yup.string().required('Name is required'),
     email: Yup.string().email('Invalid email').required('Email is required'),
-    password: Yup.string().min(6, 'Minimum 6 characters').required('Password is required'),
-    nic: Yup.string().required('NIC is required'),
-    mobileNo: Yup.string()
-      .matches(/^\d{10}$/, 'Mobile number must be 10 digits')
-      .required('Mobile number is required'),
-    address: Yup.string().required('Address is required'),
+    password: Yup.string()
+    .min(8, 'Minimum 8 characters')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/,
+      'Password must include at least 1 uppercase letter, 1 lowercase letter, and 1 special character'
+    )
+    .required('Password is required'),
+
+      nic: Yup.string()
+    .matches(/^([0-9]{9}[vVxX]|[0-9]{12})$/, 'NIC must be 10 or 12 characters')
+    .required('NIC is required'),
+      mobileNo: Yup.string()
+        .matches(/^\d{10}$/, 'Mobile number must be 10 digits')
+        .required('Mobile number is required'),
+      address: Yup.string().required('Address is required'),
   });
 
   const handleSubmit = async (values) => {
-    if (!navigator.onLine) {
-      return toast.error('No internet connection. Please check your network.');
-    }
-
     try {
       await dispatch(sendOtp(values.email));
-      toast.success(`Email sent successfully to ${values.email}`);
+     toast.success(`Email sent successfully to ${values.email}`, {
+     theme: "dark"
+     });
+
       dispatch(resetUpdate());
 
       navigate('/sendOtp', {
@@ -46,20 +54,14 @@ const DeliveryStaff = () => {
           userType: 'deliveryStaff'
         }
       });
-    } catch (error) {
-      let errorMessage = 'Failed to send OTP. Please try again.';
-      if (error.message.includes('Network Error')) {
-        errorMessage = 'Network error! Please check your internet connection.';
-      } else if (error.response && error.response.data && error.response.data.message) {
-        errorMessage = error.response.data.message;
-
-        if (errorMessage === 'Email already exists') {
-          toast.error('This email is already registered. Please use a different email.');
-          return;
-        }
-      }
-
-      toast.error(errorMessage);
+    }  catch (error) {
+           const errorMessage = error.message || "Failed to send OTP. Please try again.";
+           console.log("error is".errorMessage);
+          toast.error(errorMessage, {
+            position: "bottom-center",
+            autoClose: 5000,
+        theme: "dark",
+      });
     }
   };
 

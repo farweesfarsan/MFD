@@ -11,7 +11,7 @@ import { usePayment } from "../../context/paymentContext";
 import { getSubscriptionDetailsAction } from "../../actions/subscriptionActions";
 import OrderCancel from "./OrderCancel";
 import Loader from "../layouts/Loader";
-import { sendEmail } from "../../actions/usersActions";
+// import { sendEmail } from "../../actions/usersActions";
 import SimpleLoader from "../layouts/SimpleLoader";
 import axios from "axios";
 
@@ -65,12 +65,6 @@ const PaymentSuccess = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (order) {
-      sendPDFViaEmail();
-    }
-  }, [order]);
-
   const downloadPDF = async () => {
     const input = invoiceRef.current;
     const noPrintElements = input.querySelectorAll(".no-print");
@@ -91,70 +85,6 @@ const PaymentSuccess = () => {
     } catch (error) {
       toast.error("Download not Completed");
       console.error("PDF download error:", error);
-    } finally {
-      noPrintElements.forEach((el) => (el.style.display = ""));
-      setIsDownloading(false);
-    }
-  };
-
-  const [sendEmail, setSendEmail] = useState(() => {
-    const saved = sessionStorage.getItem("shouldSendEmail");
-    return saved === null ? true : JSON.parse(saved);
-  });
-
-  useEffect(() => {
-    if (sendEmail) {
-      sendPDFViaEmail()
-        .then(() => {
-          setSendEmail(false);
-          sessionStorage.setItem("shouldSendEmail", "false");
-        })
-        .catch((err) => {
-          console.error("Failed to send email:", err);
-        });
-    }
-  }, [sendEmail]);
-
-  const sendPDFViaEmail = async () => {
-    const input = invoiceRef.current;
-    const noPrintElements = input.querySelectorAll(".no-print");
-
-    try {
-      setIsDownloading(true);
-      noPrintElements.forEach((el) => (el.style.display = "none"));
-
-      const canvas = await html2canvas(input, { scale: 2, useCORS: true });
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "mm", "a4");
-      const imgProps = pdf.getImageProperties(imgData);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-
-      const blob = pdf.output("blob");
-      const formData = new FormData();
-      formData.append(
-        "invoice",
-        blob,
-        `Invoice_${order.paymentInfo?.id || "order"}.pdf`
-      );
-      formData.append("email", user.email);
-      formData.append("name", user.name);
-
-      const response = await axios.post(
-        "http://localhost:8000/invoice/send-invoice",
-        formData
-      );
-      toast.success(response.data.message || "Check Your Email!", {
-        position: "bottom-center",
-        theme: "dark",
-      });
-    } catch (error) {
-      toast.error("Failed to send invoice.", {
-        position: "bottom-center",
-        theme: "dark",
-      });
-      console.error("Send invoice error:", error);
     } finally {
       noPrintElements.forEach((el) => (el.style.display = ""));
       setIsDownloading(false);

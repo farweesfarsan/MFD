@@ -10,7 +10,7 @@ const ProtectedRoute = ({children,isAdmin,isDeliveryStaff}) => {
    }
 
    if(authenticatedUser){
-    if(isAdmin === true && user.role !== 'admin'){
+    if(isAdmin === true && !['Admin', 'Super_Admin'].includes(user.role)){
       return <Navigate to='/'/>
     }
     if(isDeliveryStaff === true && user.role !== 'DeliveryStaff'){
@@ -21,9 +21,6 @@ const ProtectedRoute = ({children,isAdmin,isDeliveryStaff}) => {
 
    if(loading){
     return  <Loader/>
-   }
-  
-    
+   }    
 }
-
 export default ProtectedRoute

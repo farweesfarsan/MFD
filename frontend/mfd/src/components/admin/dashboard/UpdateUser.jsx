@@ -17,8 +17,8 @@ const UpdateUser = () => {
   const [mobileNo,setMobileNo] = useState("");
 
   const userRole = [
-    "user",
-    "admin",
+    "Customer",
+    "Admin",
   ];
   const { loading, isUserUpdated, error, user } = useSelector((state) => state.userState);
   const { user:authUser } = useSelector(state => state.authState);

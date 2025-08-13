@@ -57,8 +57,8 @@ const ConfirmOrder = () => {
                     {item.name}
                   </Link>
                   <p className="text-sm text-gray-600 mt-1">
-                    {item.quantity} x ${item.price.toFixed(2)} ={' '}
-                    <span className="font-semibold">${(item.quantity * item.price).toFixed(2)}</span>
+                    {item.quantity} x Rs.{item.price.toFixed(2)} ={' '}
+                    <span className="font-semibold">Rs.{(item.quantity * item.price).toFixed(2)}</span>
                   </p>
                 </div>
               </div>
@@ -74,16 +74,16 @@ const ConfirmOrder = () => {
             <div className="text-sm space-y-2">
               <div className="flex justify-between">
                 <span>Subtotal:</span>
-                <span className="font-medium">${itemsPrice.toFixed(2)}</span>
+                <span className="font-medium">Rs.{itemsPrice.toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
                 <span>Delivery Charge:</span>
-                <span className="font-medium">${deliveryCharge.toFixed(2)}</span>
+                <span className="font-medium">Rs{deliveryCharge.toFixed(2)}</span>
               </div>
               <hr className="my-2" />
               <div className="flex justify-between text-lg font-semibold">
                 <span>Total:</span>
-                <span>${totalPrice}</span>
+                <span>Rs.{totalPrice}</span>
               </div>
             </div>
 

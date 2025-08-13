@@ -40,6 +40,12 @@ import UpdateUser from "./components/admin/dashboard/UpdateUser";
 import DeliveryStaff from "./components/user/DeliveryStaff";
 import DeliveryStaffPage from "./page/DeliverysStaffPage";
 import ReviewList from "./components/admin/dashboard/ReviewList";
+import ProductReport from "./page/reports/ProductReport";
+import OrderReport from "./page/reports/OrderReport";
+import UserReport from "./page/reports/UserReport";
+import MyOrders from "./components/user/MyOrders";
+import RevenueReport from "./page/reports/RevenueReport";
+
 
 const App = () => {
     useEffect(() => {
@@ -51,7 +57,7 @@ const App = () => {
             <Router>
                 <div className="font-sans">
                     <Header />
-                    
+                
                     <ToastContainer position="bottom-center" autoClose={5000} />
                     
                     <Routes>
@@ -76,6 +82,7 @@ const App = () => {
                         <Route path="/subscription-success" element={<SubscriptionSuccess/>}/>
                         <Route path="/subscription-cancel" element={<SubscriptionCancel/>}/>
                         <Route path="/order-cancel" element={<OrderCancel/>}/>
+                        <Route path="/profile/myOrders" element={<MyOrders/>}/>
 
                     </Routes>
                   
@@ -92,7 +99,12 @@ const App = () => {
                   <Route path="/admin/reviews" element={<ProtectedRoute isAdmin={true}><ReviewList/></ProtectedRoute>}/>
                   <Route path="/admin/users/:id" element={<ProtectedRoute isAdmin={true}><UpdateUser/></ProtectedRoute>}/>
                   <Route path="/admin/users/newDeliveryStaff" element={<ProtectedRoute isAdmin={true}><DeliveryStaff/></ProtectedRoute>}/>
+                  <Route path="/admin/productReport" element={<ProtectedRoute isAdmin={true}><ProductReport/></ProtectedRoute>}/>
+                  <Route path="/admin/userReport" element={<ProtectedRoute isAdmin={true}><UserReport/></ProtectedRoute>}/>
+                  <Route path="/admin/orderReport" element={<ProtectedRoute isAdmin={true}><OrderReport/></ProtectedRoute>}/>
+                   <Route path="/admin/revenueReport" element={<ProtectedRoute isAdmin={true}><RevenueReport/></ProtectedRoute>}/>
                    
+
                   <Route path="/deliveryStaff/deliveryStaffPage" element={<ProtectedRoute isDeliveryStaff={true}><DeliveryStaffPage/></ProtectedRoute>}/>
                 </Routes>
             </Router>

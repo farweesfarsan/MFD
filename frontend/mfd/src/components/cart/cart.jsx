@@ -66,7 +66,7 @@ const Cart = () => {
                   {/* Right Side: Price, -, Qty, +, Trash */}
                   <div className="flex items-center gap-3 mt-4 lg:mt-0 lg:ml-auto">
                     <div className="text-sm font-semibold text-gray-700">
-                      ${item.price}
+                      Rs.{item.price}
                     </div>
 
                     <button
@@ -118,7 +118,7 @@ const Cart = () => {
                 <p className="mb-2 text-gray-600 text-sm">
                   Est. total:{" "}
                   <span className="font-semibold text-gray-800">
-                    $
+                    Rs.
                     {items
                       .reduce(
                         (acc, item) => acc + item.quantity * item.price,

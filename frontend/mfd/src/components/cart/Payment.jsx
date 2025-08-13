@@ -173,7 +173,7 @@ const Payment = () => {
             <p className="text-yellow-700">
               It seems like your order session has expired. Please go back and
               create a new order. If you want to cancel the last placed order,
-              please check your email for the cancellation process.
+              please visit here  for the cancellation process.
             </p>
           </div>
           <button
@@ -183,6 +183,13 @@ const Payment = () => {
             <IoArrowBackCircle size={28} />
             Back to Home
           </button>
+          <button
+              onClick={() => navigate("/profile/myOrders")}
+              className="flex items-center justify-center gap-2 px-6 py-3 bg-red-600 text-white text-lg font-medium rounded hover:bg-red-700 transition"
+            >
+            <IoArrowBackCircle size={28} />
+            My Orders
+            </button>
         </div>
       ) : (
         <div className="max-w-xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">

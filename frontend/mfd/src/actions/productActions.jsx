@@ -135,7 +135,7 @@ export const deleteReviews = (productId, id) => async (dispatch) => {
       `http://localhost:8000/mfd/admin/review`,
       {
         params: { productId, id },
-        withCredentials: true, // ✅ must be inside config
+        withCredentials: true, 
       }
     );
 

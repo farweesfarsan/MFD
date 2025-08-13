@@ -29,20 +29,29 @@ const Slider = () => {
           }`}
           style={{ backgroundColor: slide.bgColor }}
         >
-          <div className="flex flex-col sm:flex-row justify-center items-center h-full px-4 sm:px-10 space-y-4 sm:space-y-0 sm:space-x-6">
-            <div className="text-center sm:text-left text-white max-w-xs sm:max-w-sm md:max-w-md">
-              <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-4">{slide.title}</h2>
-              <p className="text-sm sm:text-base md:text-lg mb-2 sm:mb-4">{slide.description}</p>
-              <button className="border border-gray-500 bg-[#224F34] mt-2 text-white rounded-md px-4 py-2 text-sm sm:text-base">
-                Order Now
-              </button>
-            </div>
-            <img
-              src={slide.url}
-              className="h-[200px] sm:h-[250px] md:h-[300px] w-auto rounded-lg"
-              alt={slide.title}
-            />
-          </div>
+          <div
+  key={index}
+  className={`absolute inset-0 transition-opacity duration-1000 ${
+    currentIndex === index ? "opacity-100 z-10" : "opacity-0 z-0"
+  } ${slide.gradient} flex justify-center items-center`}
+>
+  <div className="flex flex-col sm:flex-row justify-center items-center h-full px-4 sm:px-10 space-y-4 sm:space-y-0 sm:space-x-6 animate-fade-in-down">
+    <div className="text-center sm:text-left text-white max-w-xs sm:max-w-sm md:max-w-md">
+      <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-4 animate-slide-in-left">
+        {slide.title}
+      </h2>
+      <p className="text-sm sm:text-base md:text-lg mb-2 sm:mb-4 animate-slide-in-left delay-100">
+        {slide.description}
+      </p>
+    </div>
+    <img
+      src={slide.url}
+      className="h-[200px] sm:h-[250px] md:h-[300px] w-auto rounded-lg animate-zoom-in"
+      alt={slide.title}
+    />
+  </div>
+</div>
+
         </div>
       ))}
       {/* Previous and Next Buttons */}
