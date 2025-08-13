@@ -28,6 +28,11 @@ exports.createDeliveryStaff = catchAssyncError(async (req, res) => {
     const existingUser = await User.findOne({ email });
     if (existingUser) return res.status(400).json({ message: 'Email already exists' });
 
+    const existingNIC = await DeliveryStaff.findOne({ nic });
+    if (existingNIC) {
+      return res.status(400).json({ message: 'NIC already exists' });
+    }
+
     let avatar;
     if (req.file) {
       avatar = `${process.env.BACKEND_URL}/uploads/user/${req.file.originalname}`;

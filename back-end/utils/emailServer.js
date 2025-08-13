@@ -1,18 +1,16 @@
-// email.js
+
 const nodemailer = require('nodemailer');
 const forgotPasswordTemplate = require('../emailTemplates/forgotPasswordTemplate');
 
 const sendEmail = async (options) => {
     const transporter = nodemailer.createTransport({
-        service: 'Gmail',
-        auth: {
-            user: process.env.EMAIL_FROM,
-            pass: process.env.EMAIL_SERVER_PASS,
-        },
+        host: 'localhost',    // MailDev SMTP host
+        port: 1025,           // MailDev SMTP port
+        ignoreTLS: true       // MailDev does not use TLS
     });
 
     const message = {
-        from: `${process.env.SMTP_FROM_NAME} <${process.env.EMAIL_FROM}>`,
+        from: `"${process.env.SMTP_FROM_NAME || 'Test App'}" <${process.env.EMAIL_FROM || 'no-reply@test.com'}>`,
         to: options.email,
         subject: options.subject,
         text: options.text || '',
@@ -24,3 +22,4 @@ const sendEmail = async (options) => {
 };
 
 module.exports = sendEmail;
+

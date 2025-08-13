@@ -1,85 +1,7 @@
-// const WebSocket = require('ws');
-// const liveStaffMap = new Map();
-
-// function setupWebSocket(server) {
-//     const wss = new WebSocket.Server({ server }); 
-
-//     wss.on('connection', (ws) => {
-//         ws.on('message', (msg) => { 
-//             try {
-//                 const data = JSON.parse(msg);
-//                 if (data.type === 'location_update') {
-//                     liveStaffMap.set(data.staffId, { lat: data.lat, lon: data.lon, ws });
-//                 }
-//             } catch (error) {
-//                 console.log("Invalid web socket message", error);
-//             }
-//         });
-
-//         ws.on('close', () => {
-//             for (const [id, staff] of liveStaffMap.entries()) {
-//                 if (staff.ws === ws) liveStaffMap.delete(id);
-//             }
-//         });
-//     });
-
-//     return {
-//         wss,
-//         liveStaffMap
-//     };
-// }
-
-// module.exports = { setupWebSocket, liveStaffMap };
-// Updated WebSocket Setup (server-side)
-// === ✅ Updated WebSocket Server Setup (websocket.js) ===
-// const WebSocket = require('ws');
-// const liveStaffMap = new Map();
-
-// function setupWebSocket(server) {
-//   const wss = new WebSocket.Server({ server });
-
-//   wss.on('connection', (ws) => {
-//     ws.on('message', (msg) => {
-//       try {
-//         const data = JSON.parse(msg);
-
-//         if (data.type === 'register_staff') {
-//           // Register delivery staff by ID
-//           liveStaffMap.set(data.staffId, { ws });
-//           console.log(`✅ Staff registered: ${data.staffId}`);
-//         }
-
-//         if (data.type === 'location_update') {
-//           if (liveStaffMap.has(data.staffId)) {
-//             liveStaffMap.get(data.staffId).lat = data.lat;
-//             liveStaffMap.get(data.staffId).lon = data.lon;
-//           } else {
-//             liveStaffMap.set(data.staffId, { lat: data.lat, lon: data.lon, ws });
-//           }
-//         }
-//       } catch (error) {
-//         console.error("❌ Invalid WebSocket message", error);
-//       }
-//     });
-
-//     ws.on('close', () => {
-//       for (const [id, staff] of liveStaffMap.entries()) {
-//         if (staff.ws === ws) liveStaffMap.delete(id);
-//       }
-//     });
-//   });
-
-//   return {
-//     wss,
-//     liveStaffMap
-//   };
-// }
-
-// module.exports = { setupWebSocket, liveStaffMap };
 // ws/websocketManager.js
 const WebSocket = require('ws');
 
-// This Map holds connected delivery staff by staffId => { ws }
+// Holds connected delivery staff { staffId: WebSocket }
 const liveStaffMap = new Map();
 
 function setupWebSocket(server) {
@@ -93,9 +15,8 @@ function setupWebSocket(server) {
         const data = JSON.parse(msg);
         console.log('Received message:', data);
 
-        if (data.type === 'register_staff') {
-          // Register staff with ID
-          liveStaffMap.set(data.staffId, { ws });
+        if (data.type === 'register_staff' && data.staffId) {
+          liveStaffMap.set(data.staffId, ws);
           console.log(`Registered delivery staff: ${data.staffId}`);
         }
 
@@ -105,10 +26,11 @@ function setupWebSocket(server) {
     });
 
     ws.on('close', () => {
-      for (const [id, staff] of liveStaffMap.entries()) {
-        if (staff.ws === ws) {
-          liveStaffMap.delete(id);
-          console.log(`Disconnected: Staff ${id}`);
+      for (const [staffId, s] of liveStaffMap.entries()) {
+        if (s === ws) {
+          liveStaffMap.delete(staffId);
+          console.log(`Disconnected delivery staff: ${staffId}`);
+          break;
         }
       }
     });
@@ -120,4 +42,21 @@ function setupWebSocket(server) {
   };
 }
 
-module.exports = { setupWebSocket, liveStaffMap };
+// Notify all delivery staff about a new order
+function notifyDeliveryStaff(order) {
+  for (const [staffId, ws] of liveStaffMap.entries()) {
+    if (ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify({
+        type: 'new_order',
+        message: `New order #${order.id} has been placed!`,
+        orderId: order.id
+      }));
+    }
+  }
+}
+
+module.exports = {
+  setupWebSocket,
+  liveStaffMap,
+  notifyDeliveryStaff
+};

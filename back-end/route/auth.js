@@ -48,11 +48,19 @@ router.route('/deliveryStaff/:id').get(authenticatedUser,getDeliveryStaff);
 
 
 //Admin Routes
-router.route('/admin/users').get(authenticatedUser,authorizedRoles('admin'),getAllUsers);
+// router.route('/admin/users').get(authenticatedUser,authorizedRoles('Admin'),getAllUsers);
+router.route('/admin/users').get(authenticatedUser, authorizedRoles('Admin', 'Super_Admin'), getAllUsers);
 // router.route('/admin/deliveryStaff/new').post(authenticatedUser,authorizedRoles('admin'),createDeliveryStaff);
-router.route('/admin/users/:id').get(authenticatedUser,authorizedRoles('admin'),getUserById);
-router.route('/admin/users/:id').put(authenticatedUser,authorizedRoles('admin'),updateUser);
-router.route('/admin/users/:id').delete(authenticatedUser,authorizedRoles('admin'),deleteUser);
-router.route('/staff/new').post(authenticatedUser,authorizedRoles('admin'), upload.single('avatar'),createDeliveryStaff);
+// router.route('/admin/users/:id').get(authenticatedUser,authorizedRoles('Admin'),getUserById);
+// router.route('/admin/users/:id').put(authenticatedUser,authorizedRoles('Admin'),updateUser);
+// router.route('/admin/users/:id').delete(authenticatedUser,authorizedRoles('Admin'),deleteUser);
+
+router
+  .route('/admin/users/:id')
+  .get(authenticatedUser, authorizedRoles('Admin', 'Super_Admin'), getUserById)
+  .put(authenticatedUser, authorizedRoles('Super_Admin'), updateUser) 
+  .delete(authenticatedUser, authorizedRoles('Super_Admin'), deleteUser); 
+
+router.route('/staff/new').post(authenticatedUser,authorizedRoles('Admin','Super_Admin'), upload.single('avatar'),createDeliveryStaff);
 
 module.exports = router;

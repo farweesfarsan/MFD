@@ -24,12 +24,12 @@ router.route('/review').put(authenticatedUser,createReview);
 
 
 // Admin route
-router.route('/admin/products/new').post(authenticatedUser,authorizedRoles('admin'),upload.single('image'),newProduct);
-router.route('/admin/getAllProducts').get(authenticatedUser,authorizedRoles('admin'),getAllProducts);
-router.route('/admin/products/:id').delete(authenticatedUser,authorizedRoles('admin'),deleteProduct);
-router.route('/admin/products/:id').put(authenticatedUser,authorizedRoles('admin'),upload.single('image'),updateProduct);
-router.route('/admin/review').get(authenticatedUser,authorizedRoles('admin'),getReviews);
-router.route('/admin/allReviews').get(authenticatedUser,authorizedRoles('admin'),getAllReviews);
-router.route('/admin/review').delete(authenticatedUser,authorizedRoles('admin'),deleteReview);
+router.route('/admin/products/new').post(authenticatedUser,authorizedRoles('Admin','Super_Admin'),upload.single('image'),newProduct);
+router.route('/admin/getAllProducts').get(authenticatedUser,authorizedRoles('Admin','Super_Admin'),getAllProducts);
+router.route('/admin/products/:id').delete(authenticatedUser,authorizedRoles('Admin','Super_Admin'),deleteProduct);
+router.route('/admin/products/:id').put(authenticatedUser,authorizedRoles('Admin','Super_Admin'),upload.single('image'),updateProduct);
+router.route('/admin/review').get(authenticatedUser,authorizedRoles('Admin','Super_Admin'),getReviews);
+router.route('/admin/allReviews').get(authenticatedUser,authorizedRoles('Admin','Super_Admin'),getAllReviews);
+router.route('/admin/review').delete(authenticatedUser,authorizedRoles('Admin','Super_Admin'),deleteReview);
 
 module.exports = router;

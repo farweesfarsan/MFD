@@ -33,29 +33,41 @@ exports.registerUser = catchAssyncError(async (req, res, next) => {
 
 exports.sendOtp = async (req, res) => {
   try {
-    const { email } = req.body;
+    const { email, nic, role } = req.body;
 
     if (!email) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Email is required." });
+      return res.status(400).json({
+        success: false,
+        message: "Email is required.",
+      });
     }
 
-    // Check if the user already exists
-    let existingUser = await User.findOne({ email });
+    if (role === "DeliveryStaff" && nic) {
+  const existingNic = await DeliveryStaff.findOne({ nic });
+  if (existingNic) {
+    return res.status(400).json({
+      success: false,
+      message: "NIC Already Exist",
+    });
+  }
+}
 
+
+    // Check if the user already exists by email
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "User already exists. Please log in.",
-        });
+      return res.status(400).json({
+        success: false,
+        message: "User already exists. Please log in.",
+      });
     }
+
+  
+   
 
     // Generate a new OTP
     const generatedOtp = Math.floor(1000 + Math.random() * 9000);
-    const otpExpires = Date.now() + 6 * 60 * 1000; // OTP expires in 10 minutes
+    const otpExpires = Date.now() + 6 * 60 * 1000; // 6 minutes
 
     // Generate email content
     const emailContent = otpEmailTemplate(generatedOtp, email);
@@ -67,11 +79,10 @@ exports.sendOtp = async (req, res) => {
       html: emailContent,
     });
 
-    // Send response with OTP (without saving in DB)
     res.status(200).json({
       success: true,
       message: "OTP sent to your email. Please verify to proceed.",
-      otp: generatedOtp, // Sending OTP in response
+      otp: generatedOtp,
       otpExpireDate: otpExpires,
     });
   } catch (error) {
@@ -206,15 +217,7 @@ exports.resetPassword = catchAssyncError(async (req, res, next) => {
       $gt: Date.now(),
     },
   });
-
-  // if (!user) {
-  //   return next(new ErrorHandler("Password Reset token is invalid or expired"));
-  // }
-
-  // if (req.body.password !== req.body.confirmedPassword) {
-  //   next(new ErrorHandler("Password does not matched!"));
-  // }
-
+  
   if (!user) {
   return next(new ErrorHandler("Password Reset token is invalid or expired"));
 }
@@ -291,19 +294,6 @@ exports.getAllUsers = catchAssyncError(async (req, res, next) => {
 });
 
 //Admin: Get user by id
-// exports.getUserById = catchAssyncError(async (req, res, next) => {
-//   const user = await User.findById(req.params.id);
-//   if (!user) {
-//     return next(
-//       new ErrorHandler(`User not found with this id: ${req.params.id}`)
-//     );
-//   }
-
-//   res.status(200).json({
-//     success: true,
-//     user,
-//   });
-// });
 exports.getUserById = catchAssyncError(async (req, res, next) => {
   const user = await User.findById(req.params.id);
   if (!user) {
@@ -340,28 +330,19 @@ exports.getUserById = catchAssyncError(async (req, res, next) => {
   });
 });
 
-
-//Admin: Update User
-// exports.updateUser = catchAssyncError(async (req, res, next) => {
-//   let newUserData = {
-//     name: req.body.name,
-//     email: req.body.email,
-//     role: req.body.role,
-//   };
-
-//   const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
-//     new: true,
-//     runValidators: true,
-//   });
-
-//   res.status(200).json({
-//     success: true,
-//     user,
-//   });
-// });
-
 exports.updateUser = catchAssyncError(async (req, res, next) => {
   const userId = req.params.id;
+  const loggedInUser = req.user;
+
+  const targetUser = await User.findById(userId);
+  if (!targetUser) {
+    return next(new ErrorHandler("Target user not found", 404));
+  }
+
+  // Admins are not allowed to update any user roles
+  if (loggedInUser.role === 'Admin') {
+    return next(new ErrorHandler("Access Denied!", 403));
+  }
 
   const newUserData = {
     name: req.body.name,
@@ -369,13 +350,12 @@ exports.updateUser = catchAssyncError(async (req, res, next) => {
     role: req.body.role,
   };
 
-  // Update user base data
   const user = await User.findByIdAndUpdate(userId, newUserData, {
     new: true,
     runValidators: true,
   });
 
-  // Update deliveryStaff info if role is deliveryStaff
+  // If updating DeliveryStaff, also update their data
   if (req.body.role === "DeliveryStaff") {
     const deliveryData = {
       nic: req.body.nic,
@@ -383,12 +363,10 @@ exports.updateUser = catchAssyncError(async (req, res, next) => {
       address: req.body.address,
     };
 
-    // assuming user has a relatedId to DeliveryStaff schema
-    await DeliveryStaff.findOneAndUpdate(
-      { user: userId },  // or use user.relatedId if mapped that way
-      deliveryData,
-      { new: true, runValidators: true }
-    );
+    await DeliveryStaff.findOneAndUpdate({ user: userId }, deliveryData, {
+      new: true,
+      runValidators: true,
+    });
   }
 
   res.status(200).json({
@@ -397,24 +375,24 @@ exports.updateUser = catchAssyncError(async (req, res, next) => {
   });
 });
 
-
-
-
-//Admin: Delete a User
 exports.deleteUser = catchAssyncError(async (req, res, next) => {
-  const user = await User.findById(req.params.id);
-  if (!user) {
-    return next(
-      new ErrorHandler(`User not found with this id: ${req.params.id}`)
-    );
+  const userToDelete = await User.findById(req.params.id);
+  const loggedInUser = req.user;
+
+  if (!userToDelete) {
+    return next(new ErrorHandler(`User not found with this id: ${req.params.id}`));
   }
 
-  await user.deleteOne();
+  // Only Super_Admin can delete users
+  if (loggedInUser.role !== 'Super_Admin') {
+    return next(new ErrorHandler("Only Super_Admin can delete users", 403));
+  }
+
+  await userToDelete.deleteOne();
+
   res.status(200).json({
     success: true,
     message: "User deleted successfully!",
   });
-
-  
-
 });
+

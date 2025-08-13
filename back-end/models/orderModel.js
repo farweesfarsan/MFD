@@ -18,6 +18,10 @@ const orderSchema = mongoose.Schema({
             required:true
         }
     },
+    verificationCode: {
+  type: Number,
+  required: true,
+},
     user:{
         type: mongoose.SchemaTypes.ObjectId,
         required:true,
