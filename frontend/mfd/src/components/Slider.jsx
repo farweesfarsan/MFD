@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+/*import React, { useState, useEffect } from "react";
 import imageSlide from "../../src/data";
 
 const Slider = () => {
@@ -54,7 +54,7 @@ const Slider = () => {
 
         </div>
       ))}
-      {/* Previous and Next Buttons */}
+      
       <button
         onClick={goToPrevious}
         className="absolute top-1/2 left-2 sm:left-4 transform -translate-y-1/2 text-white bg-black bg-opacity-50 rounded-full p-2 sm:p-3"
@@ -67,7 +67,7 @@ const Slider = () => {
       >
         &#10095;
       </button>
-      {/* Dots Indicator */}
+     
       <div className="absolute bottom-3 sm:bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
         {imageSlide.map((_, index) => (
           <button
@@ -83,4 +83,48 @@ const Slider = () => {
   );
 };
 
+export default Slider;*/
+
+import React from "react";
+import heroImg from "../assets/milk.jpg"; // add your banner image
+
+const Slider = () => {
+  return (
+    <section className="bg-gray-100 py-10">
+      <div className="max-w-7xl mx-auto px-6">
+        
+        <div className="relative rounded-3xl overflow-hidden">
+          
+          {/* Background Image */}
+          <img
+            src={heroImg}
+            alt="Kitchen Towels"
+            className="w-full h-[500px] object-cover"
+          />
+
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-black/30 flex items-center">
+            <div className="ml-16 max-w-lg text-white">
+              <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+                Kitchen Towels That Stay Soft After 90°C Washes
+              </h1>
+
+              <p className="mt-4 text-lg">
+                Crafted for chefs, loved by home cooks. Discover the softness,
+                strength, and style.
+              </p>
+
+              <button className="mt-6 px-6 py-3 bg-white text-black rounded-full font-semibold hover:bg-black hover:text-white transition">
+                Shop Now
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+};
+
 export default Slider;
+

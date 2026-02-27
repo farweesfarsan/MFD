@@ -340,7 +340,7 @@ const Header = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [popoverOpen]);
 
-  return (
+/*  return (
     <div>
       <header className="bg-gradient-to-r from-[#0e2438] to-[#93c7f8] text-white p-4 flex items-center justify-between relative">
         <div className="flex items-center space-x-6 md:space-x-4 lg:space-x-8">
@@ -358,7 +358,7 @@ const Header = () => {
                     src={user?.avatar ?? './images/user/user.png'} 
                     sx={{ width: 48, height: 48, border: '2px solid #ffffff' }} 
                   />
-                  {/*Red badge for new orders */}
+                  
                   {user?.role === 'DeliveryStaff' && hasNewOrder && (
                     <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-600 rounded-full border-2 border-white" />
                   )}
@@ -404,7 +404,7 @@ const Header = () => {
             </Link>
           )}
 
-          {/* Cart Icon */}
+          
           <div className="relative bg-[#e99820fa] rounded-md p-3 hover:scale-110 hover:shadow-xl">
             <Link to='/cart'>
               <FaShoppingCart className='text-2xl cursor-pointer' />
@@ -417,7 +417,7 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Mobile menu toggle */}
+        
         <div className="md:hidden z-50">
           {menuOpen ? (
             <FiX className="text-3xl cursor-pointer" onClick={() => setMenuOpen(false)} />
@@ -427,7 +427,46 @@ const Header = () => {
         </div>
       </header>
     </div>
-  );
+  );*/
+  return (
+  <header className="bg-white shadow-sm">
+    <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+      
+      {/* Logo */}
+      <Link to="/" className="text-xl font-bold tracking-wide">
+        <img src={Mfd_logo} alt="Logo" className="h-10" />
+      </Link>
+
+      {/* Navigation */}
+      <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-700">
+        <Link to="/" className="hover:text-black">HOME</Link>
+        <Link to="/shop" className="hover:text-black">SHOP</Link>
+        <Link to="/about" className="hover:text-black">ABOUT</Link>
+        <Link to="/faq" className="hover:text-black">FAQ</Link>
+
+        {/* Cart */}
+        <Link to="/cart" className="relative">
+          <FaShoppingCart className="text-lg" />
+          {items.length > 0 && (
+            <span className="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+              {items.length}
+            </span>
+          )}
+        </Link>
+      </nav>
+
+      {/* Login Button */}
+      {!authenticatedUser && (
+        <Link
+          to="/login"
+          className="border border-black px-5 py-2 rounded-full text-sm hover:bg-black hover:text-white transition"
+        >
+          Login
+        </Link>
+      )}
+    </div>
+  </header>
+);
 };
 
 export default Header;

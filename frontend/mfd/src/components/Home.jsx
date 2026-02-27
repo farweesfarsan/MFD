@@ -37,8 +37,8 @@ const Home = () => {
         <Loader />
       ) : (
         <Fragment>
-          <div className="w-full overflow-hidden">
-            <div className="w-full mb-10">
+          <div className="bg-gray-200 min-h-screen py-10">
+            <div className="max-w-7xl mx-auto px-6">
               <Slider />
             </div>
 

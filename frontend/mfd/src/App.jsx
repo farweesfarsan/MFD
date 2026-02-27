@@ -55,7 +55,7 @@ const App = () => {
         <HelmetProvider>
             <PaymentProvider>
             <Router>
-                <div className="font-sans">
+                <div className="bg-gray-200 min-h-screen font-sans">
                     <Header />
                 
                     <ToastContainer position="bottom-center" autoClose={5000} />

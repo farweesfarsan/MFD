@@ -782,7 +782,7 @@ const DeliveryStaffPage = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [verificationInput, setVerificationInput] = useState("");
 
-  const [ sliveryStaffOrders, ]
+ // const [ sliveryStaffOrders, ]
   
   const { user } = useSelector(state => state.authState);
 
