@@ -17,6 +17,26 @@ const productSchema = new mongoose.Schema({
         required:[true, "Please Enter Product Description"]
     },
 
+    bulletTitle:{
+        type: String,
+    },
+
+    bullets: [
+        {
+            type: String
+        }
+    ],
+
+    nutritionTitle : {
+        type: String,
+    },
+
+    nutritionBullets: [
+        {
+            type: String
+        }
+    ],
+
     ratings: {
         type: String,
         default:0

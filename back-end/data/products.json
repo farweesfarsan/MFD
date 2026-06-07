@@ -2,132 +2,397 @@
     {
         "name": "Fresh Milk-1L",
         "price": 350.00,
-        "description": "Freshly drwan milk",
+        "description": "Fresh Milk 1L is sourced daily from trusted dairy farms to ensure exceptional freshness, purity, and quality in every pack. Carefully processed and hygienically packed under safe cold-chain conditions, this milk retains its natural taste and nutritional value. Rich in calcium, protein, and essential vitamins, it helps support strong bones, healthy muscles, and overall wellness for the whole family. Whether enjoyed as a refreshing drink, added to tea or coffee, or used in cooking and baking, this farm-fresh milk provides a smooth, creamy texture and wholesome dairy goodness in every sip.",
         "ratings": 4.5,
         "image": "/images/products/fresh-milk-1L.webp",
         "category": "Milk",
         "stock": 5,
         "numOfReviews": 15,
+        "bulletTitle": "Freshness You Can Trust",
+        "bullets": [
+              "Farm fresh dairy products sourced daily.",
+              "Rich in calcium and essential nutrients.",
+              "Maintained with hygienic cold-chain storage."
+        ],
+        "nutritionTitle": "Nutritional Benefits of Fresh Milk",
+        "nutritionBullets": [
+                "High in calcium for strong bones and teeth.",
+                "Rich source of protein for muscle growth.",
+                "Contains Vitamin D for better calcium absorption.",
+                "Provides natural energy and hydration."
+        ],
         "reviews": []
     },
     {
         "name": "Butter -200g",
         "price": 630.00,
-        "description": "Freshly drwan milk",
+        "description": "Butter 200g is made from premium quality fresh cream to deliver a rich, creamy texture and authentic buttery flavor. Carefully prepared to maintain freshness and taste, this butter spreads smoothly and melts perfectly into a variety of dishes. Ideal for baking cakes, preparing meals, spreading on toast, or enhancing curries and sauces, it adds delicious richness to every recipe. Packed with natural dairy goodness and essential fats, this creamy butter is a perfect addition to your kitchen for both cooking and everyday enjoyment.",
         "ratings": 3.5,
         "image": "/images/products/Butter-min.webp",
         "category": "Butter",
         "stock": 9,
         "numOfReviews": 5,
+        "bulletTitle": "Pure Creamy Butter",
+        "bullets": [
+            "Made from high quality fresh cream.",
+            "Smooth texture with rich buttery taste.",
+            "Perfect for baking and daily cooking."
+        ],
+        "nutritionTitle": "Nutritional Value of Butter",
+        "nutritionBullets": [
+        "High in healthy fats for energy.",
+        "Contains fat-soluble vitamins (A, D, E).",
+        "Supports brain and nerve function.",
+        "Rich and calorie-dense dairy product."
+        ],
         "reviews": []
     },
     {
         "name": "Ghee -750ml",
         "price": 550.00,
-        "description": "Freshly drwan milk",
+        "description": "Ghee 750ml is traditionally prepared using slow-cooked dairy butter to create a rich aroma, golden color, and authentic flavor. This pure ghee is carefully processed to preserve its nutritional value and smooth texture, making it ideal for cooking, frying, baking, and preparing traditional sweets. Known for its rich taste and natural energy benefits, ghee is widely used in healthy diets and traditional recipes. Its long shelf life, delightful fragrance, and versatility make it an essential ingredient for every household kitchen.",
         "ratings": 2,
         "image": "/images/products/Ghee-750.webp",
         "category": "Ghee",
         "seller": "Ebay",
         "stock": 9,
         "numOfReviews": 12,
+        "bulletTitle": "Golden Pure Ghee",
+        "bullets": [
+             "Traditional slow-cooked dairy ghee.",
+             "Rich aroma and authentic flavour.",
+             "Ideal for healthy cooking and sweets."
+        ],
+        "nutritionTitle": "Nutritional Benefits of Ghee",
+        "nutritionBullets": [
+        "Rich in healthy saturated fats.",
+        "Contains antioxidants for immunity.",
+        "Supports digestion and metabolism.",
+        "Good source of energy."
+        ],
         "reviews": []
     },
     {
         "name": "Panneer -1Kg",
         "price": 640.00,
-        "description": "Freshly drwan milk",
+        "description":  "Paneer 1Kg is prepared using premium quality fresh milk to provide a soft, creamy texture and rich dairy flavor. Packed with protein and calcium, this fresh paneer is a healthy and nutritious choice for a variety of meals. It is perfect for curries, grilled dishes, salads, wraps, and snacks, making it a versatile ingredient for both traditional and modern recipes. Hygienically prepared and carefully packed to preserve freshness, this paneer delivers delicious taste and excellent quality in every bite.",
         "ratings": 4,
         "image": "/images/products/Panneer.webp",
         "category": "Panneer",
         "stock": 9,
         "numOfReviews": 12,
+        "bulletTitle": "Soft & Fresh Paneer",
+        "bullets": [
+            "Prepared from premium fresh milk.",
+            "Soft texture with high protein value.",
+            "Perfect for curries and grilled dishes."
+        ],
+        "nutritionTitle": "Nutritional Value of Paneer",
+        "nutritionBullets": [
+        "High in protein for muscle building.",
+        "Rich in calcium for bones.",
+        "Low in carbohydrates.",
+        "Supports weight management diet."
+        ],
         "reviews": []
       },
       {
         "name": "Strawberry Yoghurt-Drink",
         "price": 200.00,
-        "description": "Freshly drwan milk",
+        "description": "Strawberry Yoghurt Drink combines creamy yoghurt with the refreshing sweetness of strawberry flavor to create a smooth and delicious beverage. Enriched with probiotics, calcium, and essential nutrients, it helps support healthy digestion while delivering a refreshing dairy experience. Its fruity taste and creamy texture make it an ideal drink for children and adults alike. Perfect when served chilled, this yoghurt drink is a refreshing option for breakfast, snacks, or daily refreshment.",
         "ratings": 5,
         "image": "/images/products/Yog-Milk-Str.webp",
         "category": "Yoghurt Drink",
         "stock": 9,
         "numOfReviews": 12,
+        "bulletTitle": "Refreshing Yoghurt Drink",
+        "bullets": [
+            "Refreshing probiotic dairy beverage.",
+            "Smooth texture with fruity flavours.",
+            "Helps support healthy digestion."
+        ],
+         "nutritionTitle": "Nutritional Value of Strawberry Yoghurt Drink",
+        "nutritionBullets": [
+        "Contains probiotics for gut health.",
+        "Provides calcium and protein.",
+        "Natural fruit-based energy source.",
+        "Helps improve digestion."
+        ],
         "reviews": []
     },
     {
         "name": "Vanilla ice-cream",
         "price": 150.00,
-        "description": "vanilla flavoured ice-cream",
+        "description":"Vanilla Ice Cream is made using premium dairy ingredients to create a rich, smooth, and creamy frozen dessert with classic vanilla flavor. Its soft texture and refreshing sweetness make it a perfect treat for every occasion, whether enjoyed alone or served with cakes, fruits, and desserts. Carefully prepared to maintain high quality and delicious taste, this ice cream offers a satisfying and refreshing experience loved by children and adults alike.",
         "ratings": 5,
         "image": "/images/products/Vanilla-ice-cream.webp",
         "category": "Ice-Cream",
         "stock": 4,
         "numOfReviews": 20,
+        "bulletTitle": "Creamy Frozen Delight",
+        "bullets": [
+            "Smooth and creamy ice cream texture.",
+            "Made with premium dairy ingredients.",
+            "Perfect dessert for every occasion."
+        ],
+        "nutritionTitle": "Nutritional Value of Ice Cream",
+        "nutritionBullets": [
+        "Provides quick energy from sugars.",
+        "Contains calcium from dairy.",
+        "Rich in fats for energy storage.",
+        "Best consumed in moderation."
+        ],
         "reviews": []
     },
     {
         "name": "Yoghurt-Bulk",
         "price": 1200.00,
-        "description": "Freshly drwan milk",
+        "description": "Yoghurt Bulk is naturally fermented using fresh dairy milk to provide a thick, creamy texture and deliciously refreshing taste. Rich in probiotics, calcium, and protein, it supports digestion and overall wellness while serving as a healthy daily snack for the whole family. This yoghurt is carefully prepared under hygienic conditions to preserve freshness and nutritional value. Ideal for meals, desserts, smoothies, or direct consumption, it delivers natural dairy goodness in every serving.",
         "ratings": 3,
         "image": "/images/products/Yoghurt.webp",
         "category": "Yoghurt",
         "stock": 6,
+        "bulletTitle": "Healthy Daily Yoghurt",
+        "bullets": [
+             "Naturally fermented fresh yoghurt.",
+             "Rich in calcium and probiotics.",
+             "Healthy snack for every age."
+        ],
+         "nutritionTitle": "Nutritional Benefits of Yoghurt",
+        "nutritionBullets": [
+        "Rich in probiotics for gut health.",
+        "High in calcium and protein.",
+        "Improves digestion naturally.",
+        "Supports immune system."
+        ],
         "numOfReviews": 9,
         "reviews": []
     },
     {
         "name": "Curd -950ml",
         "price": 1200.00,
-        "description": "Freshly drawn milk",
+        "description": "Curd 950ml is prepared from fresh cow milk to create a naturally thick, creamy, and refreshing dairy product. Carefully fermented under hygienic conditions, this curd provides a rich taste and smooth texture while supporting healthy digestion with natural probiotics. It is an excellent addition to daily meals and can be enjoyed with rice, fruits, spices, or traditional dishes. Rich in calcium and protein, this fresh curd is both nutritious and delicious for the entire family.",
         "ratings": 3,
         "image": "/images/products/CURD-950.webp",
         "category": "Curd",
         "stock": 6,
+        "bulletTitle":"Traditional Fresh Curd",
+        "bullets": [
+             "Naturally set thick creamy curd.",
+              "Prepared using fresh cow milk.",
+              "Ideal for healthy daily meals."
+        ],
+        "nutritionTitle": "Nutritional Benefits of Curd",
+        "nutritionBullets": [
+        "Supports digestion with good bacteria.",
+        "High calcium for bone strength.",
+        "Helps cooling the body.",
+        "Good source of protein."
+        ],
         "numOfReviews": 9,
         "reviews": []
     },{
         "name": "Fresh Milk-500ml",
         "price": 175.00,
-        "description": "Freshly drwan milk",
+        "description": "Fresh Milk 500ml is collected daily from healthy dairy farms and hygienically packed to ensure freshness, purity, and quality in every bottle. Rich in calcium, protein, and essential nutrients, this fresh dairy milk supports healthy growth, strong bones, and overall wellness. Its smooth and creamy taste makes it ideal for drinking, preparing tea or coffee, and adding to cereals, desserts, and recipes. Conveniently packed for everyday use, it delivers wholesome dairy nutrition with every serving.",
         "ratings": 4.5,
        "image": "/images/products/Fresh-Milk-500ml.webp",
         "category": "Milk",
         "stock": 5,
+         "bulletTitle": "Pure Farm Fresh Milk",
+        "bullets": [
+            "Collected fresh daily from healthy dairy farms.",
+            "Rich in calcium, protein, and essential nutrients.",
+            "No preservatives or artificial additives added.",
+            "Maintained under hygienic cold-chain storage."
+        ],
+         "nutritionTitle": "Nutritional Benefits of Fresh Milk",
+        "nutritionBullets": [
+            "Supports bone strength with high calcium content.",
+            "Good source of protein for daily nutrition.",
+            "Helps improve energy levels naturally.",
+            "Fresh and easily digestible dairy drink."
+        ],
         "numOfReviews": 15,
         "reviews": []
     },
     {
         "name": "Chocalate Milk-1L",
         "price": 500.00,
-        "description": "Freshly drwan milk",
+        "description":"Chocolate Milk 1L combines fresh dairy milk with rich chocolate flavor to create a creamy, smooth, and refreshing beverage loved by both children and adults. Packed with calcium, protein, and natural dairy goodness, it provides energy and nutrition while delivering a delicious chocolate taste. Perfect when served chilled, this flavored milk is ideal for breakfast, snacks, or post-workout refreshment. Its rich texture and balanced sweetness make every sip enjoyable and satisfying.",
         "ratings": 4.5,
         "image": "/images/products/Chocalate-Milk-1l.webp",
         "category": "Milk",
         "stock": 5,
+        "bulletTitle": "Rich Chocolate Milk Delight",
+         "bullets": [
+        "Creamy milk blended with rich chocolate flavour.",
+        "Smooth texture loved by both kids and adults.",
+        "Packed with calcium and dairy goodness.",
+        "Perfect chilled drink for any time of day."
+        ],
+         "nutritionTitle": "Nutritional Value of Chocolate Milk",
+        "nutritionBullets": [
+        "Provides quick energy from natural milk sugars.",
+        "Rich in calcium and protein.",
+        "Supports muscle recovery after activity.",
+        "Delicious way to consume essential nutrients."
+        ],
         "numOfReviews": 15,
         "reviews": []
     },{
         "name": "Vanilla Milk-1L",
         "price": 750.00,
-        "description": "Freshly drwan milk",
+        "description":"Vanilla Milk 1L is prepared using fresh dairy milk blended with smooth vanilla flavor for a creamy and refreshing drink experience. Rich in calcium, protein, and essential nutrients, it provides both nutrition and delicious taste in every serving. Its naturally sweet and smooth texture makes it ideal for children and adults looking for a refreshing dairy beverage. Best enjoyed chilled, this vanilla milk offers a delightful combination of freshness and flavor.",
         "ratings": 4.5,
         "image": "/images/products/Vanilla-Milk-1L.webp",
         "category": "Milk",
         "stock": 5,
+        "bulletTitle": "Smooth Vanilla Milk",
+        "bullets": [
+        "Delicious milk infused with classic vanilla flavour.",
+        "Smooth and creamy taste with natural sweetness.",
+        "Rich source of calcium and protein.",
+        "Refreshing beverage served best when chilled."
+         ],
+        "nutritionTitle": "Nutritional Value of Vanilla Milk",
+        "nutritionBullets": [
+        "Contains calcium for strong bones.",
+        "Provides protein for muscle growth.",
+        "Natural energy boost from dairy milk.",
+        "Smooth digestion-friendly beverage."
+        ],
         "numOfReviews": 15,
         "reviews": []
     },
     {
         "name": "Strawberry Milk-1L",
         "price": 600.00,
-        "description": "Freshly drwan milk",
+        "description": "Strawberry Milk 1L combines fresh dairy milk with delicious strawberry flavor to create a refreshing and creamy beverage. Carefully prepared using quality dairy ingredients, it provides calcium, protein, and essential nutrients while offering a fruity sweetness loved by all age groups. Perfect for breakfast, snacks, or refreshment on warm days, this strawberry milk delivers a smooth texture, rich flavor, and refreshing dairy goodness in every sip.",
         "ratings": 4.5,
         "image": "/images/products/Strawberry-Milk-1L.webp",
         "category": "Milk",
         "stock": 5,
+        "bulletTitle": "Refreshing Strawberry Milk",
+        "bullets": [
+        "Fresh dairy milk with fruity strawberry flavour.",
+        "Smooth creamy texture with refreshing sweetness.",
+        "Perfect energy drink for children and families.",
+        "Prepared using high quality dairy ingredients."
+         ],
+        "nutritionTitle": "Nutritional Value of Strawberry Milk",
+        "nutritionBullets": [
+        "Rich in calcium and protein.",
+        "Provides vitamin C from strawberry flavoring.",
+        "Boosts energy and hydration.",
+        "Supports overall growth and immunity."
+        ],
         "numOfReviews": 15,
         "reviews": []
+    },
+    {
+        "name":"Almond Milk-1L",
+        "price" :620.00,
+        "description" : "Almond Milk 1L offers a rich and creamy dairy beverage infused with delicious almond flavor and natural nutty goodness. Packed with vitamins, minerals, healthy fats, and essential nutrients, it supports a balanced and healthy lifestyle. Its smooth texture and refreshing taste make it perfect for breakfast, snacks, or daily nutrition. Carefully prepared using premium ingredients, this almond-flavored milk provides both refreshing flavor and nourishing benefits in every glass.",
+        "ratings":3.5,
+        "image":"/images/products/Almond-Milk.jpg",
+        "category": "Milk",
+        "stock":4,
+        "bulletTitle": "Nutritious Almond Milk",
+        "bullets": [
+        "Creamy milk blended with rich almond flavour.",
+        "High in nutrients with delicious nutty taste.",
+        "Refreshing drink suitable for daily nutrition.",
+        "Prepared using premium quality dairy milk."
+        ],
+        "nutritionTitle": "Nutritional Benefits of Almond Milk",
+        "nutritionBullets": [
+        "Contains healthy fats for energy.",
+        "Supports heart health.",
+        "Rich in vitamins and minerals.",
+        "Lactose-free dairy alternative."
+        ],
+        "numOfReviews":12,
+        "reviews":[]
+
+    },
+     {
+        "name":"Chocolate-Ice",
+        "price" :480.00,
+        "description" :  "Chocolate Ice Cream is made using premium dairy ingredients and rich chocolate flavor to create a smooth, creamy, and indulgent frozen dessert. Its velvety texture and delicious chocolate taste make it a favorite treat for both children and adults. Perfect for parties, celebrations, desserts, or everyday enjoyment, this ice cream provides a refreshing and satisfying experience in every scoop. Carefully prepared for quality and freshness, it delivers delightful sweetness and creamy goodness.",
+        "ratings":4,
+        "image":"/images/products/Chocolate-Ice.jpg",
+        "category": "Ice-Cream",
+        "stock":6,
+        "bulletTitle": "Creamy Chocolate Ice Cream",
+        "bullets": [
+        "Rich chocolate flavour with creamy smooth texture.",
+        "Prepared using premium dairy ingredients.",
+        "Perfect frozen dessert for every occasion.",
+        "Delicious taste loved by all age groups."
+         ],
+        "nutritionTitle": "Nutritional Highlights of Chocolate Ice Cream",
+        "nutritionBullets": [
+        "Provides quick energy from carbohydrates and natural sugars.",
+        "Contains calcium from dairy for bone strength.",
+        "Includes fats that support energy balance.",
+        "Offers small amounts of protein from milk solids."
+        ],
+        "numOfReviews":13,
+        "reviews":[]
+
+    },
+    {
+        "name":"Yoghurd-Drink-Vanilla",
+        "price" :125.00,
+        "description" : "Vanilla Yoghurt Drink is a creamy and refreshing probiotic beverage made with smooth dairy yoghurt and delicious vanilla flavor. Rich in calcium, protein, and beneficial probiotics, it supports healthy digestion while delivering a cool and satisfying refreshment. Its smooth texture and balanced sweetness make it ideal for breakfast, snacks, or on-the-go enjoyment. Best served chilled, this yoghurt drink combines nutrition and flavor in a refreshing dairy beverage.",
+        "ratings":4,
+        "image":"/images/products/Yoghurd-Drink.jpg",
+        "category": "Yoghurt Drink",
+        "stock":10,
+        "bulletTitle": "Refreshing Vanilla Yoghurt Drink",
+        "bullets": [
+        "Smooth probiotic yoghurt drink with vanilla flavour.",
+        "Helps support healthy digestion naturally.",
+        "Refreshing beverage with creamy dairy taste.",
+        "Perfect chilled drink for daily refreshment."
+        ],
+        "nutritionTitle": "Nutritional Benefits of Vanilla Yoghurt Drink",
+        "nutritionBullets": [
+        "Rich in probiotics that support gut health.",
+        "Good source of calcium for strong bones.",
+        "Contains protein that supports muscle repair.",
+        "Provides hydration with essential nutrients."
+        ],
+        "numOfReviews":9,
+        "reviews":[]
+
+    },
+     {
+        "name":"Yoghurt",
+        "price" :50.00,
+        "description" :  "Fresh Yoghurt is naturally fermented using quality dairy milk to provide a creamy texture, refreshing taste, and healthy probiotic benefits. Rich in calcium, protein, and essential nutrients, it supports digestion, bone strength, and overall wellness. This yoghurt is carefully prepared under hygienic conditions to maintain freshness and quality in every serving. Perfect as a healthy snack, dessert, or meal accompaniment, it offers delicious dairy goodness suitable for all age groups.",
+        "ratings":4,
+        "image":"/images/products/Yoghurd-Drink.jpg",
+        "category": "Yoghurt",
+        "stock":30,
+        "bulletTitle": "Healthy Daily Yoghurt",
+        "bullets": [
+        "Naturally fermented fresh dairy yoghurt.",
+        "Rich in calcium and healthy probiotics.",
+        "Smooth creamy texture with refreshing taste.",
+        "Healthy snack suitable for every age."
+         ],
+        "nutritionTitle": "Nutritional Value of Fresh Yoghurt",
+        "nutritionBullets": [
+        "High in probiotics for digestive health.",
+        "Excellent source of calcium and phosphorus.",
+        "Contains protein for muscle maintenance.",
+        "Supports immune system and gut balance."
+        ],
+        "numOfReviews":9,
+        "reviews":[]
+
     }
+
 ]

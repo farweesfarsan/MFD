@@ -13,12 +13,14 @@ const upload = multer({storage: multer.diskStorage({
 
 
 
-const { getProducts, newProduct, getSingleProduct, updateProduct, deleteProduct, createReview, getReviews, deleteReview, getAllReviews, getAllProducts } = require('../controller/productController');
+const { getProducts, newProduct, getSingleProduct, updateProduct, deleteProduct, createReview, getReviews, deleteReview, getAllReviews, getAllProducts, getRelatedProducts } = require('../controller/productController');
 const router = express.Router();
 const { authenticatedUser,authorizedRoles } = require('../middleware/authMiddleware');
 
 router.route('/products').get(getProducts);
+router.route('/products/related').get(getRelatedProducts);
 router.route('/products/:id').get(getSingleProduct);
+
 
 router.route('/review').put(authenticatedUser,createReview);
 
@@ -31,5 +33,6 @@ router.route('/admin/products/:id').put(authenticatedUser,authorizedRoles('Admin
 router.route('/admin/review').get(authenticatedUser,authorizedRoles('Admin','Super_Admin'),getReviews);
 router.route('/admin/allReviews').get(authenticatedUser,authorizedRoles('Admin','Super_Admin'),getAllReviews);
 router.route('/admin/review').delete(authenticatedUser,authorizedRoles('Admin','Super_Admin'),deleteReview);
+//router.get('/products/related', getRelatedProducts);
 
 module.exports = router;
